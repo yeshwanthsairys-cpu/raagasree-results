@@ -281,6 +281,33 @@
       box-shadow: 0 0 0 3px rgba(214,166,75,.13);
     }
 
+    .dob-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .dob-row #dob {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .calendar-button {
+      flex: 0 0 48px;
+      height: 48px;
+      border: 1px solid #dce2eb;
+      border-radius: 9px;
+      background: #f5f6f9;
+      color: var(--navy);
+      font-size: 21px;
+      cursor: pointer;
+    }
+
+    .calendar-button:hover {
+      border-color: var(--gold);
+      background: var(--gold-light);
+    }
+
     .primary-btn {
       width: 100%;
       padding: 14px;
@@ -781,7 +808,33 @@
 
         <div class="field">
           <label for="dob">DATE OF BIRTH</label>
-          <input id="dob" type="date" required>
+
+          <div class="dob-row">
+            <input
+              id="dob"
+              type="text"
+              placeholder="DD/MM/YYYY"
+              inputmode="numeric"
+              maxlength="10"
+              autocomplete="bday"
+              required
+            >
+
+            <button
+              type="button"
+              class="calendar-button"
+              onclick="openDOBCalendar()"
+              aria-label="Open date calendar"
+            >📅</button>
+
+            <input
+              id="dobCalendar"
+              type="date"
+              aria-label="Choose date of birth"
+              style="position:absolute;width:1px;height:1px;opacity:0;pointer-events:none"
+              tabindex="-1"
+            >
+          </div>
         </div>
 
         <button type="submit" class="primary-btn" id="loginButton">
@@ -916,13 +969,92 @@
         : "VIEW MY RESULTS";
     }
 
+    // Accept typed DD/MM/YYYY or DD-MM-YYYY.
+    // Also accepts the date selected from the calendar.
     function formatDOB(dateValue) {
-      // HTML date input returns YYYY-MM-DD.
-      // Apps Script expects DD/MM/YYYY.
-      const parts = dateValue.split("-");
-      if (parts.length !== 3) return dateValue;
-      return `${parts[2]}/${parts[1]}/${parts[0]}`;
+      const value = dateValue.trim();
+
+      const match = value.match(
+        /^(\d{1,2})[/-](\d{1,2})[/-](\d{4})$/
+      );
+
+      if (match) {
+        const day = match[1].padStart(2, "0");
+        const month = match[2].padStart(2, "0");
+        const year = match[3];
+
+        const date = new Date(
+          Number(year),
+          Number(month) - 1,
+          Number(day)
+        );
+
+        if (
+          date.getFullYear() !== Number(year) ||
+          date.getMonth() !== Number(month) - 1 ||
+          date.getDate() !== Number(day)
+        ) {
+          throw new Error("Please enter a valid date of birth.");
+        }
+
+        return `${day}/${month}/${year}`;
+      }
+
+      const iso = value.match(
+        /^(\d{4})-(\d{2})-(\d{2})$/
+      );
+
+      if (iso) {
+        return `${iso[3]}/${iso[2]}/${iso[1]}`;
+      }
+
+      throw new Error(
+        "Enter date of birth in DD/MM/YYYY format."
+      );
     }
+
+    // Open the mobile or desktop calendar.
+    function openDOBCalendar() {
+      const calendar = $("dobCalendar");
+
+      if (typeof calendar.showPicker === "function") {
+        try {
+          calendar.showPicker();
+        } catch (error) {
+          calendar.click();
+        }
+      } else {
+        calendar.click();
+      }
+    }
+
+    // Put the selected calendar date into the typing field.
+    $("dobCalendar").addEventListener("change", function() {
+      if (!this.value) return;
+
+      const parts = this.value.split("-");
+
+      $("dob").value =
+        `${parts[2]}/${parts[1]}/${parts[0]}`;
+    });
+
+    // Add slashes automatically while typing numbers.
+    $("dob").addEventListener("input", function() {
+      let value = this.value.replace(/\D/g, "").slice(0, 8);
+
+      if (value.length > 4) {
+        value =
+          value.slice(0, 2) + "/" +
+          value.slice(2, 4) + "/" +
+          value.slice(4);
+      } else if (value.length > 2) {
+        value =
+          value.slice(0, 2) + "/" +
+          value.slice(2);
+      }
+
+      this.value = value;
+    });
 
     async function callResultsAPI(hallTicket, dob) {
       const response = await fetch(API_URL, {
@@ -942,12 +1074,15 @@
       try {
         data = await response.json();
       } catch (error) {
-        throw new Error("Invalid response from the results server.");
+        throw new Error(
+          "Invalid response from the results server."
+        );
       }
 
       if (!response.ok) {
         throw new Error(
-          data.message || "Unable to connect to the results server."
+          data.message ||
+          "Unable to connect to the results server."
         );
       }
 
@@ -966,7 +1101,7 @@
       event.preventDefault();
 
       const hallTicket = $("hallTicket").value.trim();
-      const dob = $("dob").value;
+      const dob = $("dob").value.trim();
 
       if (!hallTicket || !dob) {
         showMessage(
@@ -1002,6 +1137,7 @@
           $("totalMarks").textContent = "—";
           $("percentage").textContent = "—";
           $("overallGrade").textContent = "—";
+
           $("resultContent").innerHTML = `
             <div class="empty-state">
               Student verified, but no assessment results are available yet.
@@ -1012,7 +1148,10 @@
           showSelectedAssessment();
         }
 
-        window.scrollTo({ top: 0, behavior: "smooth" });
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth"
+        });
 
       } catch (error) {
         showMessage(
@@ -1063,7 +1202,8 @@
         father ? "Father: " + father : ""
       ].filter(Boolean);
 
-      $("studentDetails").textContent = details.join("  |  ");
+      $("studentDetails").textContent =
+        details.join("  |  ");
     }
 
     function normalizeAssessments(data) {
@@ -1202,7 +1342,8 @@
         selectedAssessment.grade ||
         getGrade(percentage);
 
-      $("assessmentLabel").textContent = selectedAssessment.code;
+      $("assessmentLabel").textContent =
+        selectedAssessment.code;
 
       $("totalMarks").textContent =
         formatNumber(obtained) + " / " + formatNumber(maximum);
@@ -1294,7 +1435,10 @@
       $("loginMessage").className = "message";
       $("loginMessage").textContent = "";
 
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
     }
   </script>
 
