@@ -3,295 +3,473 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Raagasree E.M High School | Student Results</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --navy: #101d3a;
-      --navy-light: #1c3158;
-      --gold: #d9a441;
-      --gold-light: #f4d58a;
+      --navy: #101f3d;
+      --navy2: #192e52;
+      --gold: #d6a64b;
+      --gold-light: #f5e4b8;
       --white: #ffffff;
-      --bg: #f4f6fa;
-      --text: #263247;
-      --muted: #748096;
-      --border: #e5e9f0;
-      --green: #18865b;
-      --red: #c53c46;
+      --text: #25334a;
+      --muted: #758197;
+      --border: #e5e9ef;
     }
 
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
     body {
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: var(--bg);
+      font-family: 'DM Sans', sans-serif;
+      background: #f2f4f8;
       color: var(--text);
     }
 
-    .topbar {
-      height: 7px;
-      background: linear-gradient(90deg, var(--gold), var(--gold-light), var(--gold));
+    button, input, select {
+      font: inherit;
     }
 
-    header {
+    .topbar {
       background: var(--navy);
       color: white;
-      text-align: center;
-      padding: 32px 15px 28px;
-      border-bottom: 4px solid var(--gold);
+      padding: 13px 7%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+    }
+
+    .brand-small {
+      display: flex;
+      align-items: center;
+      gap: 12px;
     }
 
     .logo {
-      width: 54px;
-      height: 54px;
-      margin: 0 auto 12px;
+      width: 43px;
+      height: 43px;
       border: 2px solid var(--gold);
       border-radius: 50%;
-      display: flex;
+      display: grid;
+      place-items: center;
+      color: var(--gold);
+      font-family: Georgia, serif;
+      font-size: 27px;
+      font-weight: bold;
+    }
+
+    .brand-small h3 {
+      font-size: 15px;
+      letter-spacing: 1px;
+    }
+
+    .brand-small p {
+      color: #d5dbea;
+      font-size: 10px;
+      letter-spacing: 2px;
+      margin-top: 3px;
+    }
+
+    .top-label {
+      color: var(--gold-light);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .hero {
+      background: linear-gradient(120deg, #101f3d, #203d68);
+      color: white;
+      padding: 45px 7% 55px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero:after {
+      content: "";
+      position: absolute;
+      width: 350px;
+      height: 350px;
+      border: 1px solid rgba(214,166,75,.22);
+      border-radius: 50%;
+      right: -90px;
+      top: -160px;
+      box-shadow:
+        0 0 0 35px rgba(214,166,75,.035),
+        0 0 0 75px rgba(214,166,75,.025);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 1100px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
       align-items: center;
-      justify-content: center;
-      color: var(--gold-light);
-      font-family: Georgia, serif;
-      font-size: 35px;
-      font-weight: bold;
+      gap: 35px;
     }
 
-    .welcome {
+    .eyebrow {
       color: var(--gold-light);
-      font-size: 11px;
-      font-weight: bold;
-      letter-spacing: 4px;
-      margin-bottom: 7px;
-    }
-
-    header h1 {
-      margin: 0;
-      color: var(--gold-light);
-      font-family: Georgia, serif;
-      font-size: clamp(30px, 6vw, 46px);
-      letter-spacing: 2px;
-    }
-
-    header h2 {
-      margin: 5px 0 0;
-      font-size: 16px;
+      font-size: 12px;
       letter-spacing: 3px;
-      font-weight: 600;
+      font-weight: 700;
+      margin-bottom: 15px;
     }
 
-    .location {
-      margin-top: 7px;
-      font-size: 13px;
-      color: #d9dfeb;
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(35px, 5vw, 59px);
+      line-height: 1.08;
+      color: white;
+    }
+
+    .hero h1 span {
+      color: var(--gold);
+    }
+
+    .school-subtitle {
+      font-size: 17px;
       letter-spacing: 2px;
+      margin-top: 13px;
+      color: #e7edf8;
+      font-weight: 700;
     }
 
     .tagline {
-      margin-top: 15px;
       color: var(--gold-light);
-      font-family: Georgia, serif;
+      font-size: 14px;
+      margin-top: 12px;
       font-style: italic;
-      font-size: 15px;
     }
 
-    main {
-      width: min(950px, 92%);
-      margin: 32px auto 50px;
+    .hero-note {
+      margin-top: 28px;
+      max-width: 430px;
+      line-height: 1.7;
+      color: #d6dfed;
+      font-size: 14px;
     }
 
-    .login-card, .results-card {
+    .correspondent {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .correspondent-info {
+      max-width: 240px;
+      text-align: center;
+    }
+
+    .correspondent-info small {
+      display: block;
+      color: var(--gold-light);
+      font-size: 11px;
+      letter-spacing: 2px;
+      font-weight: 700;
+      margin-bottom: 15px;
+    }
+
+    .correspondent-info img {
+      display: block;
+      width: 135px;
+      height: 155px;
+      object-fit: cover;
+      object-position: center top;
+      border: 3px solid var(--gold);
+      border-radius: 12px;
+      margin: 0 auto 13px;
       background: white;
-      border-radius: 15px;
-      padding: 28px;
-      box-shadow: 0 8px 28px rgba(16, 29, 58, .07);
+    }
+
+    .correspondent-info h3 {
+      color: white;
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      margin-top: 8px;
+    }
+
+    .correspondent-info p {
+      color: var(--gold-light);
+      font-size: 13px;
+      margin-top: 5px;
+    }
+
+    .main {
+      max-width: 1100px;
+      margin: -25px auto 50px;
+      padding: 0 20px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .login-card {
+      max-width: 490px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 16px;
+      padding: 32px;
+      box-shadow: 0 15px 45px rgba(16,31,61,.12);
       border: 1px solid var(--border);
     }
 
     .section-heading {
       text-align: center;
-      margin-bottom: 24px;
+      margin-bottom: 25px;
     }
 
-    .section-heading h3 {
+    .section-heading .icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 15px;
+      background: var(--gold-light);
       color: var(--navy);
-      font-size: 23px;
-      margin: 0 0 8px;
+      display: grid;
+      place-items: center;
+      font-size: 24px;
+      margin: 0 auto 13px;
+    }
+
+    .section-heading h2 {
+      font-family: 'Playfair Display', serif;
+      color: var(--navy);
+      font-size: 25px;
     }
 
     .section-heading p {
       color: var(--muted);
-      font-size: 14px;
-      margin: 0;
+      font-size: 13px;
+      margin-top: 7px;
     }
 
-    .form-group { margin-bottom: 18px; }
+    .field {
+      margin-bottom: 17px;
+    }
 
-    label {
+    .field label {
       display: block;
+      font-size: 12px;
+      font-weight: 700;
       color: var(--navy);
-      font-size: 13px;
-      font-weight: bold;
       margin-bottom: 8px;
     }
 
-    input {
+    .field input {
       width: 100%;
-      padding: 14px;
-      border: 1px solid #d7dce6;
-      border-radius: 8px;
-      font-size: 15px;
+      border: 1px solid #dce2eb;
+      padding: 14px 15px;
+      border-radius: 9px;
       outline: none;
-      background: #fff;
-    }
-
-    input:focus {
-      border-color: var(--gold);
-      box-shadow: 0 0 0 3px rgba(217, 164, 65, .13);
-    }
-
-    .hint {
-      color: var(--muted);
-      font-size: 11px;
-      margin-top: 6px;
-    }
-
-    button {
-      border: none;
-      border-radius: 8px;
-      padding: 14px 20px;
       font-size: 14px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: .2s;
+      background: #fbfcfe;
     }
 
-    button:disabled {
-      opacity: .65;
-      cursor: not-allowed;
+    .field input:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(214,166,75,.13);
     }
 
     .primary-btn {
       width: 100%;
-      color: var(--navy);
-      background: var(--gold);
+      padding: 14px;
+      background: var(--navy);
+      color: white;
+      border: 0;
+      border-radius: 9px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: .2s;
     }
 
-    .primary-btn:hover { background: var(--gold-light); }
+    .primary-btn:hover {
+      background: var(--navy2);
+      transform: translateY(-1px);
+    }
+
+    .primary-btn:disabled {
+      opacity: .6;
+      cursor: wait;
+      transform: none;
+    }
 
     .message {
-      display: none;
+      margin-top: 15px;
       padding: 12px;
       border-radius: 8px;
-      margin-top: 16px;
       font-size: 13px;
-      text-align: center;
+      display: none;
+      line-height: 1.5;
     }
 
     .message.error {
       display: block;
-      color: var(--red);
+      color: #a52c2c;
       background: #fff0f0;
     }
 
     .message.success {
       display: block;
-      color: var(--green);
+      color: #126b48;
       background: #eaf8f1;
     }
 
-    .results-card { display: none; }
+    .dashboard {
+      display: none;
+      margin-top: 35px;
+    }
 
     .student-header {
-      background: var(--navy);
-      color: white;
-      padding: 22px;
-      border-radius: 11px;
-      border-left: 5px solid var(--gold);
+      background: white;
+      padding: 24px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
       margin-bottom: 22px;
     }
 
-    .student-header h3 {
-      margin: 0 0 15px;
-      color: var(--gold-light);
-      font-size: 20px;
+    .student-header h2 {
+      color: var(--navy);
+      font-family: 'Playfair Display', serif;
+      font-size: 24px;
     }
 
-    .student-details {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 13px;
+    .student-header p {
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 7px;
     }
 
-    .detail-label {
-      color: #c4cede;
-      display: block;
-      font-size: 11px;
-      margin-bottom: 4px;
-    }
-
-    .detail-value {
-      color: white;
-      font-size: 14px;
-      font-weight: bold;
-      overflow-wrap: anywhere;
-    }
-
-    .assessment-bar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      margin: 20px 0;
-      flex-wrap: wrap;
-    }
-
-    .assessment-bar label { margin: 0; }
-
-    select {
-      padding: 11px 14px;
-      border: 1px solid #d7dce6;
-      border-radius: 8px;
-      min-width: 220px;
-      font-size: 14px;
+    .logout-btn {
+      border: 1px solid var(--border);
       background: white;
+      color: var(--navy);
+      border-radius: 8px;
+      padding: 10px 16px;
+      cursor: pointer;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+
+    .stat-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    .stat-card small {
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .6px;
+    }
+
+    .stat-card h3 {
+      color: var(--navy);
+      font-size: 25px;
+      margin-top: 9px;
+    }
+
+    .results-card {
+      background: white;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      padding: 25px;
+    }
+
+    .results-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .results-title h2 {
+      font-family: 'Playfair Display', serif;
+      color: var(--navy);
+      font-size: 23px;
+    }
+
+    .assessment-select {
+      border: 1px solid #dce2eb;
+      background: white;
+      border-radius: 8px;
+      padding: 11px 14px;
+      color: var(--navy);
+      font-weight: 700;
+      min-width: 210px;
     }
 
     .table-wrap {
       overflow-x: auto;
-      border: 1px solid var(--border);
-      border-radius: 9px;
     }
 
     table {
-      border-collapse: collapse;
       width: 100%;
-      min-width: 480px;
+      border-collapse: collapse;
+      min-width: 520px;
     }
 
     th {
       background: var(--navy);
       color: white;
       text-align: left;
-      padding: 14px;
+      padding: 13px;
       font-size: 12px;
+      font-weight: 700;
     }
 
     td {
-      padding: 13px 14px;
+      padding: 13px;
       border-bottom: 1px solid var(--border);
       font-size: 13px;
     }
 
-    tbody tr:last-child td { border-bottom: none; }
-
-    .total-row {
-      background: #fff9eb;
-      font-weight: bold;
+    tbody tr:last-child td {
+      border-bottom: 0;
     }
 
-    .summary {
+    .marks-value {
+      font-weight: 800;
+      color: var(--navy);
+    }
+
+    .grade-pill {
+      display: inline-block;
+      background: #f4eddb;
+      color: #86611e;
+      padding: 5px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .result-summary {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 12px;
@@ -299,176 +477,415 @@
     }
 
     .summary-box {
-      background: #f6f7fa;
-      border: 1px solid var(--border);
+      padding: 16px;
+      background: #f7f8fb;
       border-radius: 9px;
-      padding: 16px 10px;
-      text-align: center;
     }
 
-    .summary-box span {
-      display: block;
+    .summary-box small {
       color: var(--muted);
       font-size: 11px;
-      margin-bottom: 8px;
     }
 
-    .summary-box strong {
+    .summary-box h3 {
       color: var(--navy);
-      font-size: 21px;
+      font-size: 20px;
+      margin-top: 6px;
     }
 
-    .action-buttons {
-      display: flex;
-      gap: 10px;
-      margin-top: 22px;
-    }
-
-    .print-btn {
-      flex: 1;
-      background: var(--navy);
-      color: white;
-    }
-
-    .logout-btn {
-      background: #edf0f5;
-      color: var(--navy);
+    .print-school {
+      display: none;
     }
 
     .empty-state {
       text-align: center;
       color: var(--muted);
-      padding: 25px 10px;
+      padding: 35px 15px;
+      font-size: 14px;
     }
 
-    footer {
-      background: var(--navy);
-      color: #d3d9e5;
+    .footer {
       text-align: center;
-      padding: 22px 12px;
+      padding: 25px 15px;
+      color: #7b8798;
       font-size: 12px;
-      line-height: 1.8;
     }
 
-    footer strong { color: var(--gold-light); }
+    .footer strong {
+      color: var(--navy);
+    }
 
-    @media (max-width: 550px) {
-      main { margin-top: 20px; }
-      .login-card, .results-card { padding: 19px; }
-      .student-details { grid-template-columns: 1fr 1fr; }
-      .summary { grid-template-columns: 1fr; }
-      .assessment-bar { align-items: stretch; }
-      select { width: 100%; }
-      .action-buttons { flex-direction: column; }
+    @media(max-width: 750px) {
+      .hero-content {
+        grid-template-columns: 1fr;
+      }
+
+      .correspondent {
+        justify-content: flex-start;
+      }
+
+      .hero {
+        padding: 35px 6% 50px;
+      }
+
+      .dashboard-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .student-header {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+
+    @media(max-width: 480px) {
+      .login-card {
+        padding: 23px 18px;
+      }
+
+      .dashboard-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .result-summary {
+        grid-template-columns: 1fr;
+      }
+
+      .top-label {
+        display: none;
+      }
     }
 
     @media print {
-      body { background: white; }
-      header { padding: 15px; }
-      main { width: 100%; margin: 15px auto; }
-      .login-card, footer, .assessment-bar,
-      .action-buttons { display: none !important; }
-      .results-card {
-        display: block !important;
-        box-shadow: none;
-        border: none;
+      @page {
+        size: A4 portrait;
+        margin: 12mm;
+      }
+
+      body {
+        background: white !important;
+        color: #17243b;
+      }
+
+      .topbar,
+      .hero,
+      .login-card,
+      .student-header .logout-btn,
+      .results-title .assessment-select,
+      .footer,
+      .no-print {
+        display: none !important;
+      }
+
+      .main {
+        max-width: none;
+        margin: 0;
         padding: 0;
       }
-      .student-header {
-        background: white;
-        color: black;
-        border: 1px solid #aaa;
+
+      .dashboard {
+        display: block !important;
+        margin: 0;
       }
-      .student-header h3, .detail-value { color: black; }
-      .detail-label { color: #555; }
-      th { background: #eee !important; color: black !important; }
-      .summary-box { background: white; }
+
+      .student-header,
+      .results-card {
+        border: 0;
+        box-shadow: none;
+        padding: 0;
+      }
+
+      .student-header {
+        display: block;
+        margin-bottom: 15px;
+      }
+
+      .print-school {
+        display: block;
+        text-align: center;
+        border-bottom: 3px double #b58a38;
+        padding-bottom: 12px;
+        margin-bottom: 18px;
+      }
+
+      .print-school h1 {
+        font-family: Georgia, serif;
+        color: #101f3d;
+        font-size: 25px;
+      }
+
+      .print-school h3 {
+        font-size: 14px;
+        margin-top: 4px;
+      }
+
+      .print-school p {
+        font-size: 11px;
+        color: #745a2b;
+        margin-top: 5px;
+      }
+
+      .student-header h2 {
+        font-size: 20px;
+      }
+
+      .dashboard-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+        margin: 12px 0;
+      }
+
+      .stat-card {
+        border: 1px solid #cfd4dd;
+        padding: 11px;
+      }
+
+      .stat-card h3 {
+        font-size: 17px;
+      }
+
+      .results-card {
+        padding: 0;
+      }
+
+      .results-title {
+        margin-bottom: 12px;
+      }
+
+      .results-title h2 {
+        font-size: 18px;
+      }
+
+      table {
+        min-width: 0;
+      }
+
+      th {
+        background: #e8edf5 !important;
+        color: #101f3d !important;
+        border: 1px solid #cbd2dc;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      td {
+        border: 1px solid #d6dbe3;
+        padding: 9px;
+      }
+
+      .result-summary {
+        margin-top: 13px;
+      }
+
+      .summary-box {
+        border: 1px solid #d6dbe3;
+        background: white !important;
+      }
+
+      .grade-pill {
+        border: 1px solid #c4a15a;
+        background: #f8f1df !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .print-note {
+        display: block;
+        margin-top: 30px;
+        border-top: 1px solid #aaa;
+        padding-top: 12px;
+        font-size: 11px;
+        text-align: center;
+      }
+    }
+
+    .print-note {
+      display: none;
     }
   </style>
 </head>
 
 <body>
-  <div class="topbar"></div>
 
-  <header>
-    <div class="logo">R</div>
-    <div class="welcome">WELCOME TO</div>
-    <h1>RAAGASREE</h1>
-    <h2>E.M HIGH SCHOOL</h2>
-    <div class="location">V. KOTA</div>
-    <div class="tagline">Excellence in Every Step</div>
+  <header class="topbar">
+    <div class="brand-small">
+      <div class="logo">R</div>
+      <div>
+        <h3>RAAGASREE</h3>
+        <p>EXCELLENCE IN EVERY STEP</p>
+      </div>
+    </div>
+    <div class="top-label">STUDENT RESULTS PORTAL</div>
   </header>
 
-  <main>
-    <section class="login-card" id="loginSection">
+  <section class="hero">
+    <div class="hero-content">
+
+      <div>
+        <div class="eyebrow">WELCOME TO</div>
+
+        <h1>RAAGASREE<br><span>E.M HIGH SCHOOL</span></h1>
+
+        <div class="school-subtitle">V. KOTA</div>
+
+        <div class="tagline">Excellence in Every Step</div>
+
+        <p class="hero-note">
+          A dedicated portal for students and parents to access
+          academic performance and assessment results.
+        </p>
+      </div>
+
+      <div class="correspondent">
+        <div class="correspondent-info">
+
+          <small>UNDER THE LEADERSHIP OF</small>
+
+          <img
+            src="https://drive.google.com/thumbnail?id=1d2dhJccWvjMZuSaF5uEvK-dqRyPGisTx&sz=w1000"
+            alt="Dr. V. Raghupathi"
+            onerror="this.alt='Correspondent photo unavailable';"
+          >
+
+          <h3>Dr. V. Raghupathi</h3>
+          <p>Correspondent</p>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <main class="main">
+
+    <section class="login-card" id="loginCard">
+
       <div class="section-heading">
-        <h3>Student Results Portal</h3>
-        <p>Academic Year 2026–27</p>
+        <div class="icon">▤</div>
+        <h2>Student Login</h2>
+        <p>Enter your details to view your academic results.</p>
       </div>
 
       <form id="loginForm">
-        <div class="form-group">
-          <label for="hallTicket">Hall Ticket Number</label>
+
+        <div class="field">
+          <label for="hallTicket">HALL TICKET NUMBER</label>
           <input
             id="hallTicket"
             type="text"
-            placeholder="Enter your Hall Ticket Number"
-            autocomplete="username"
+            placeholder="Enter your hall ticket number"
+            autocomplete="off"
             required
           >
         </div>
 
-        <div class="form-group">
-          <label for="dob">Date of Birth</label>
-          <input
-            id="dob"
-            type="text"
-            placeholder="DD/MM/YYYY"
-            autocomplete="bday"
-            required
-          >
-          <div class="hint">Enter your date of birth in DD/MM/YYYY format.</div>
+        <div class="field">
+          <label for="dob">DATE OF BIRTH</label>
+          <input id="dob" type="date" required>
         </div>
 
-        <button class="primary-btn" id="loginButton" type="submit">
-          CHECK MY RESULTS
+        <button type="submit" class="primary-btn" id="loginButton">
+          VIEW MY RESULTS
         </button>
+
       </form>
 
       <div class="message" id="loginMessage" role="alert"></div>
+
     </section>
 
-    <section class="results-card" id="resultsSection">
+    <section class="dashboard" id="dashboard">
+
+      <div class="print-school">
+        <h1>RAAGASREE E.M HIGH SCHOOL</h1>
+        <h3>V. KOTA</h3>
+        <p>Excellence in Every Step | Academic Year 2026–27</p>
+        <p>STUDENT PROGRESS REPORT</p>
+      </div>
+
       <div class="student-header">
-        <h3>Student Report</h3>
-        <div class="student-details" id="studentDetails"></div>
-      </div>
+        <div>
+          <h2 id="studentName">Student Name</h2>
+          <p id="studentDetails"></p>
+        </div>
 
-      <div class="assessment-bar">
-        <label for="assessmentSelect">Select Assessment</label>
-        <select id="assessmentSelect"></select>
-      </div>
-
-      <div id="marksArea"></div>
-
-      <div class="summary" id="summaryArea"></div>
-
-      <div class="action-buttons">
-        <button class="print-btn" onclick="window.print()">
-          PRINT REPORT
-        </button>
-        <button class="logout-btn" id="logoutButton">
+        <button class="logout-btn no-print" onclick="logout()">
           LOG OUT
         </button>
       </div>
+
+      <div class="dashboard-grid">
+
+        <div class="stat-card">
+          <small>Assessment</small>
+          <h3 id="assessmentLabel">—</h3>
+        </div>
+
+        <div class="stat-card">
+          <small>Total Marks</small>
+          <h3 id="totalMarks">—</h3>
+        </div>
+
+        <div class="stat-card">
+          <small>Percentage</small>
+          <h3 id="percentage">—</h3>
+        </div>
+
+        <div class="stat-card">
+          <small>Overall Grade</small>
+          <h3 id="overallGrade">—</h3>
+        </div>
+
+      </div>
+
+      <div class="results-card">
+
+        <div class="results-title">
+          <h2>Academic Performance</h2>
+
+          <select
+            class="assessment-select no-print"
+            id="assessmentSelect"
+            onchange="showSelectedAssessment()"
+          >
+            <option value="">Select Assessment</option>
+          </select>
+        </div>
+
+        <div id="resultContent">
+          <div class="empty-state">
+            Select an assessment to view subject-wise marks.
+          </div>
+        </div>
+
+        <div class="print-note">
+          This is a computer-generated student progress report.
+          For any clarification, please contact the school office.
+        </div>
+
+        <div
+          style="display:flex;justify-content:flex-end;margin-top:20px"
+          class="no-print"
+        >
+          <button
+            class="primary-btn"
+            style="max-width:190px"
+            onclick="window.print()"
+          >
+            PRINT REPORT
+          </button>
+        </div>
+
+      </div>
+
     </section>
+
   </main>
 
-  <footer>
-    <strong>RAAGASREE E.M HIGH SCHOOL</strong><br>
-    V. Kota<br>
-    <em>Excellence in Every Step</em><br>
-    Student Results Portal • 2026–27
+  <footer class="footer">
+    <strong>RAAGASREE E.M HIGH SCHOOL, V. KOTA</strong>
+    <p style="margin-top:6px">Excellence in Every Step</p>
+    <p style="margin-top:6px">Student Results Portal | 2026–27</p>
   </footer>
 
   <script>
@@ -476,230 +893,410 @@
       "https://raagasree-results-api.yeshwanthsai-rys.workers.dev/";
 
     let currentStudent = null;
-    let currentAssessments = [];
+    let allAssessments = [];
+    let selectedAssessment = null;
 
-    const loginForm = document.getElementById("loginForm");
-    const loginButton = document.getElementById("loginButton");
-    const loginMessage = document.getElementById("loginMessage");
+    const assessmentOrder = [
+      "FA1", "FA2", "SA1", "FA3", "FA4", "SA2"
+    ];
+
+    const $ = id => document.getElementById(id);
 
     function showMessage(message, type) {
-      loginMessage.textContent = message;
-      loginMessage.className = "message " + type;
+      const box = $("loginMessage");
+      box.textContent = message;
+      box.className = "message " + type;
     }
 
-    function escapeHTML(value) {
-      return String(value ?? "").replace(/[&<>"']/g, char => ({
-        "&": "&amp;",
-        "<": "&lt;",
-        ">": "&gt;",
-        '"': "&quot;",
-        "'": "&#039;"
-      })[char]);
+    function setLoading(loading) {
+      const button = $("loginButton");
+      button.disabled = loading;
+      button.textContent = loading
+        ? "PLEASE WAIT..."
+        : "VIEW MY RESULTS";
     }
 
-    loginForm.addEventListener("submit", async function(event) {
+    function formatDOB(dateValue) {
+      // HTML date input returns YYYY-MM-DD.
+      // Apps Script expects DD/MM/YYYY.
+      const parts = dateValue.split("-");
+      if (parts.length !== 3) return dateValue;
+      return `${parts[2]}/${parts[1]}/${parts[0]}`;
+    }
+
+    async function callResultsAPI(hallTicket, dob) {
+      const response = await fetch(API_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          action: "getStudentResults",
+          hallTicket: hallTicket,
+          dob: formatDOB(dob)
+        })
+      });
+
+      let data;
+
+      try {
+        data = await response.json();
+      } catch (error) {
+        throw new Error("Invalid response from the results server.");
+      }
+
+      if (!response.ok) {
+        throw new Error(
+          data.message || "Unable to connect to the results server."
+        );
+      }
+
+      if (!data || data.success === false) {
+        throw new Error(
+          data && data.message
+            ? data.message
+            : "Student details could not be verified. Please check your details."
+        );
+      }
+
+      return data;
+    }
+
+    $("loginForm").addEventListener("submit", async function(event) {
       event.preventDefault();
 
-      const hallTicket =
-        document.getElementById("hallTicket").value.trim();
-
-      const dob =
-        document.getElementById("dob").value.trim();
+      const hallTicket = $("hallTicket").value.trim();
+      const dob = $("dob").value;
 
       if (!hallTicket || !dob) {
-        showMessage("Please enter your Hall Ticket Number and Date of Birth.", "error");
+        showMessage(
+          "Please enter your hall ticket number and date of birth.",
+          "error"
+        );
         return;
       }
 
-      loginButton.disabled = true;
-      loginButton.textContent = "CHECKING...";
-      loginMessage.className = "message";
+      setLoading(true);
+      showMessage("Checking your student details...", "success");
 
       try {
-        const response = await fetch(API_URL, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            action: "getStudentResults",
-            hallTicket: hallTicket,
-            dob: dob
-          })
-        });
+        const data = await callResultsAPI(hallTicket, dob);
 
-        const result = await response.json();
-
-        if (!response.ok || !result.success) {
-          throw new Error(result.message || "Student details not found. Please check your details.");
+        if (!data.student || !Array.isArray(data.assessments)) {
+          throw new Error(
+            "The results server returned an unexpected response."
+          );
         }
 
-        if (!result.student || !Array.isArray(result.assessments)) {
-          throw new Error("The results server returned an unexpected response.");
-        }
+        currentStudent = data.student;
+        allAssessments = normalizeAssessments(data);
 
-        currentStudent = result.student;
-        currentAssessments = result.assessments;
+        $("loginCard").style.display = "none";
+        $("dashboard").style.display = "block";
 
-        displayStudent();
-        displayAssessmentOptions();
+        displayStudentDetails(currentStudent);
+        populateAssessmentSelect();
 
-        document.getElementById("loginSection").style.display = "none";
-        document.getElementById("resultsSection").style.display = "block";
-
-        if (currentAssessments.length) {
-          document.getElementById("assessmentSelect").value =
-            currentAssessments[0].code;
-          displaySelectedAssessment();
+        if (!allAssessments.length) {
+          $("assessmentLabel").textContent = "—";
+          $("totalMarks").textContent = "—";
+          $("percentage").textContent = "—";
+          $("overallGrade").textContent = "—";
+          $("resultContent").innerHTML = `
+            <div class="empty-state">
+              Student verified, but no assessment results are available yet.
+            </div>
+          `;
         } else {
-          document.getElementById("marksArea").innerHTML =
-            '<div class="empty-state">No assessment results are available yet.</div>';
-          document.getElementById("summaryArea").innerHTML = "";
+          $("assessmentSelect").value = allAssessments[0].code;
+          showSelectedAssessment();
         }
 
         window.scrollTo({ top: 0, behavior: "smooth" });
 
       } catch (error) {
-        showMessage(error.message || "Unable to connect. Please try again.", "error");
+        showMessage(
+          error.message || "Unable to connect. Please try again.",
+          "error"
+        );
       } finally {
-        loginButton.disabled = false;
-        loginButton.textContent = "CHECK MY RESULTS";
+        setLoading(false);
       }
     });
 
-    function displayStudent() {
-      const s = currentStudent;
+    function displayStudentDetails(student) {
+      student = student || {};
+
+      const name =
+        student.studentName ||
+        student.name ||
+        student["Student Name"] ||
+        "Student";
+
+      const hallTicket =
+        student.hallTicket ||
+        student["Hall Ticket"] ||
+        "";
+
+      const className =
+        student.className ||
+        student.class ||
+        student["Class"] ||
+        "";
+
+      const section =
+        student.section ||
+        student["Section"] ||
+        "";
+
+      const father =
+        student.fatherName ||
+        student["Father Name"] ||
+        "";
+
+      $("studentName").textContent = name;
 
       const details = [
-        ["Student Name", s.studentName],
-        ["Hall Ticket", s.hallTicket],
-        ["Father Name", s.fatherName],
-        ["Class & Section", [s.className, s.section].filter(Boolean).join(" - ")],
-        ["Academic Year", s.academicYear]
-      ];
+        hallTicket ? "Hall Ticket: " + hallTicket : "",
+        className,
+        section ? "Section: " + section : "",
+        father ? "Father: " + father : ""
+      ].filter(Boolean);
 
-      document.getElementById("studentDetails").innerHTML =
-        details.map(([label, value]) => `
-          <div>
-            <span class="detail-label">${escapeHTML(label)}</span>
-            <span class="detail-value">${escapeHTML(value || "—")}</span>
-          </div>
-        `).join("");
+      $("studentDetails").textContent = details.join("  |  ");
     }
 
-    function displayAssessmentOptions() {
-      const select = document.getElementById("assessmentSelect");
+    function normalizeAssessments(data) {
+      let source = data.assessments || data.results || [];
 
-      select.innerHTML = currentAssessments.map(a => `
-        <option value="${escapeHTML(a.code)}">
-          ${escapeHTML(a.name)}
-        </option>
-      `).join("");
+      if (!Array.isArray(source)) {
+        source = Object.keys(source).map(key => {
+          const value = source[key];
+
+          if (value && typeof value === "object") {
+            return Object.assign({ code: key }, value);
+          }
+
+          return value;
+        });
+      }
+
+      return source.map(item => {
+        const code =
+          item.code ||
+          item.assessmentCode ||
+          item["Assessment Code"] ||
+          "";
+
+        return {
+          code: code,
+          name:
+            item.name ||
+            item.assessmentName ||
+            item["Assessment Name"] ||
+            code,
+          marks: item.marks || item.subjects || [],
+          total: item.total,
+          maximumTotal: item.maximumTotal,
+          percentage: item.percentage,
+          grade: item.grade
+        };
+      }).sort((a, b) => {
+        let ai = assessmentOrder.indexOf(a.code);
+        let bi = assessmentOrder.indexOf(b.code);
+
+        if (ai < 0) ai = 99;
+        if (bi < 0) bi = 99;
+
+        return ai - bi;
+      });
     }
 
-    document.getElementById("assessmentSelect")
-      .addEventListener("change", displaySelectedAssessment);
+    function populateAssessmentSelect() {
+      const select = $("assessmentSelect");
+      select.innerHTML = "";
 
-    function displaySelectedAssessment() {
-      const selectedCode =
-        document.getElementById("assessmentSelect").value;
+      allAssessments.forEach(assessment => {
+        const option = document.createElement("option");
+        option.value = assessment.code;
+        option.textContent = assessment.name;
+        select.appendChild(option);
+      });
+    }
 
-      const assessment = currentAssessments.find(
-        a => String(a.code) === String(selectedCode)
+    function showSelectedAssessment() {
+      const code = $("assessmentSelect").value;
+
+      selectedAssessment = allAssessments.find(
+        assessment => assessment.code === code
       );
 
-      if (!assessment) return;
+      if (!selectedAssessment) return;
 
-      const marks = Array.isArray(assessment.marks)
-        ? assessment.marks
-        : [];
+      const marks = selectedAssessment.marks || [];
 
       let obtained = 0;
       let maximum = 0;
 
-      const rows = marks.map(mark => {
-        const score = Number(mark.marks);
-        const max = Number(mark.maximum);
+      const rows = marks.map(item => {
+        const subject =
+          item.subject ||
+          item.subjectName ||
+          item["Subject"] ||
+          "";
 
-        if (Number.isFinite(score)) obtained += score;
-        if (Number.isFinite(max)) maximum += max;
+        const markValue =
+          item.marks !== undefined ? item.marks :
+          item.mark !== undefined ? item.mark :
+          item["Marks"];
+
+        const numericMark = Number(markValue);
+        const validMark = Number.isFinite(numericMark)
+          ? numericMark
+          : 0;
+
+        const maxValue =
+          item.maximum !== undefined ? item.maximum :
+          item.maxMarks !== undefined ? item.maxMarks :
+          item.maximumMarks !== undefined ? item.maximumMarks :
+          item["Maximum"];
+
+        const numericMax = Number(maxValue);
+        const validMax = Number.isFinite(numericMax)
+          ? numericMax
+          : 0;
+
+        obtained += validMark;
+        maximum += validMax;
+
+        const grade = getGrade(
+          validMax > 0 ? validMark / validMax * 100 : 0
+        );
 
         return `
           <tr>
-            <td>${escapeHTML(mark.subject)}</td>
-            <td>${Number.isFinite(max) ? max : "—"}</td>
-            <td>${Number.isFinite(score) ? score : "—"}</td>
-            <td>${escapeHTML(mark.remarks || "—")}</td>
+            <td>${escapeHTML(subject)}</td>
+            <td class="marks-value">${escapeHTML(markValue ?? "—")}</td>
+            <td>${validMax || "—"}</td>
+            <td><span class="grade-pill">${grade}</span></td>
+            <td>${escapeHTML(item.remarks || "")}</td>
           </tr>
         `;
       }).join("");
 
-      const totalObtained = Number.isFinite(Number(assessment.total))
-        ? Number(assessment.total)
-        : obtained;
+      if (selectedAssessment.total !== undefined) {
+        const n = Number(selectedAssessment.total);
+        if (Number.isFinite(n)) obtained = n;
+      }
 
-      const totalMaximum = Number.isFinite(Number(assessment.maximumTotal))
-        ? Number(assessment.maximumTotal)
-        : maximum;
+      if (selectedAssessment.maximumTotal !== undefined) {
+        const n = Number(selectedAssessment.maximumTotal);
+        if (Number.isFinite(n)) maximum = n;
+      }
 
-      const percentage = totalMaximum > 0
-        ? (totalObtained / totalMaximum) * 100
+      const percentage = maximum > 0
+        ? obtained / maximum * 100
         : 0;
 
-      document.getElementById("marksArea").innerHTML = marks.length
-        ? `
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th>Subject</th>
-                  <th>Maximum</th>
-                  <th>Marks Obtained</th>
-                  <th>Remarks</th>
-                </tr>
-              </thead>
-              <tbody>
-                ${rows}
-                <tr class="total-row">
-                  <td>TOTAL</td>
-                  <td>${totalMaximum}</td>
-                  <td>${totalObtained}</td>
-                  <td>—</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        `
-        : '<div class="empty-state">Marks have not been entered for this assessment yet.</div>';
+      const overallGrade =
+        selectedAssessment.grade ||
+        getGrade(percentage);
 
-      document.getElementById("summaryArea").innerHTML = `
-        <div class="summary-box">
-          <span>MARKS OBTAINED</span>
-          <strong>${totalObtained}</strong>
+      $("assessmentLabel").textContent = selectedAssessment.code;
+
+      $("totalMarks").textContent =
+        formatNumber(obtained) + " / " + formatNumber(maximum);
+
+      $("percentage").textContent =
+        maximum > 0 ? percentage.toFixed(1) + "%" : "—";
+
+      $("overallGrade").textContent =
+        maximum > 0 ? overallGrade : "—";
+
+      $("resultContent").innerHTML = `
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>SUBJECT</th>
+                <th>MARKS</th>
+                <th>MAXIMUM</th>
+                <th>GRADE</th>
+                <th>REMARKS</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${rows || `
+                <tr>
+                  <td colspan="5" style="text-align:center;padding:25px">
+                    No marks entered for this assessment.
+                  </td>
+                </tr>
+              `}
+            </tbody>
+          </table>
         </div>
-        <div class="summary-box">
-          <span>MAXIMUM MARKS</span>
-          <strong>${totalMaximum}</strong>
-        </div>
-        <div class="summary-box">
-          <span>PERCENTAGE</span>
-          <strong>${percentage.toFixed(1)}%</strong>
+
+        <div class="result-summary">
+          <div class="summary-box">
+            <small>MARKS OBTAINED</small>
+            <h3>${formatNumber(obtained)}</h3>
+          </div>
+
+          <div class="summary-box">
+            <small>MAXIMUM MARKS</small>
+            <h3>${formatNumber(maximum)}</h3>
+          </div>
+
+          <div class="summary-box">
+            <small>OVERALL RESULT</small>
+            <h3>${maximum > 0 ? percentage.toFixed(1) + "%" : "—"}</h3>
+          </div>
         </div>
       `;
     }
 
-    document.getElementById("logoutButton").addEventListener("click", function() {
+    function getGrade(percentage) {
+      if (percentage >= 90) return "A1";
+      if (percentage >= 80) return "A2";
+      if (percentage >= 70) return "B1";
+      if (percentage >= 60) return "B2";
+      if (percentage >= 50) return "C1";
+      if (percentage >= 40) return "C2";
+      return "D";
+    }
+
+    function formatNumber(number) {
+      return Number(number).toLocaleString("en-IN", {
+        maximumFractionDigits: 2
+      });
+    }
+
+    function escapeHTML(value) {
+      return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    function logout() {
       currentStudent = null;
-      currentAssessments = [];
+      allAssessments = [];
+      selectedAssessment = null;
 
-      document.getElementById("resultsSection").style.display = "none";
-      document.getElementById("loginSection").style.display = "block";
+      $("dashboard").style.display = "none";
+      $("loginCard").style.display = "block";
 
-      loginForm.reset();
-      loginMessage.className = "message";
+      $("loginForm").reset();
+
+      $("loginMessage").className = "message";
+      $("loginMessage").textContent = "";
 
       window.scrollTo({ top: 0, behavior: "smooth" });
-    });
+    }
   </script>
+
 </body>
 </html>
