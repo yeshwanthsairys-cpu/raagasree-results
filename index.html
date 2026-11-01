@@ -161,8 +161,6 @@
       font-size: 14px;
     }
 
-    /* Correspondent section */
-
     .correspondent {
       display: flex;
       justify-content: center;
@@ -281,6 +279,26 @@
     .field input:focus {
       border-color: var(--gold);
       box-shadow: 0 0 0 3px rgba(214,166,75,.13);
+    }
+
+    /* DOB typing and calendar */
+
+    .dob-input-row {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .dob-input-row input[type="text"] {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .dob-input-row input[type="date"] {
+      width: 58px;
+      min-width: 58px;
+      padding: 11px;
+      cursor: pointer;
     }
 
     .primary-btn {
@@ -730,7 +748,6 @@
     </a>
   </header>
 
-
   <section class="hero">
     <div class="hero-content">
 
@@ -748,7 +765,6 @@
           academic performance and assessment results.
         </p>
       </div>
-
 
       <div class="correspondent">
         <div class="correspondent-info">
@@ -769,7 +785,6 @@
 
     </div>
   </section>
-
 
   <main class="main">
 
@@ -795,8 +810,26 @@
         </div>
 
         <div class="field">
-          <label for="dob">DATE OF BIRTH</label>
-          <input id="dob" type="date" required>
+          <label for="dobText">DATE OF BIRTH</label>
+
+          <div class="dob-input-row">
+            <input
+              id="dobText"
+              type="text"
+              placeholder="DD-MM-YYYY"
+              inputmode="numeric"
+              maxlength="10"
+              autocomplete="bday"
+              required
+            >
+
+            <input
+              id="dobPicker"
+              type="date"
+              aria-label="Select date of birth"
+              title="Select date of birth"
+            >
+          </div>
         </div>
 
         <button type="submit" class="primary-btn" id="loginButton">
@@ -809,7 +842,6 @@
 
     </section>
 
-
     <section class="dashboard" id="dashboard">
 
       <div class="print-school">
@@ -818,7 +850,6 @@
         <p>Excellence in Every Step | Academic Year 2026–27</p>
         <p>STUDENT PROGRESS REPORT</p>
       </div>
-
 
       <div class="student-header">
         <div>
@@ -830,7 +861,6 @@
           LOG OUT
         </button>
       </div>
-
 
       <div class="dashboard-grid">
 
@@ -855,7 +885,6 @@
         </div>
 
       </div>
-
 
       <div class="results-card">
 
@@ -901,13 +930,11 @@
 
   </main>
 
-
   <footer class="footer">
     <strong>RAAGASREE E.M HIGH SCHOOL, V. KOTA</strong>
     <p style="margin-top:6px">Excellence in Every Step</p>
     <p style="margin-top:6px">Student Results Portal | 2026–27</p>
   </footer>
-
 
   <script>
     let currentStudent = null;
@@ -920,13 +947,66 @@
 
     const $ = id => document.getElementById(id);
 
+    // Support both manual DOB typing and calendar selection.
+
+    $("dobText").addEventListener("input", function() {
+      let value = this.value.replace(/\D/g, "").slice(0, 8);
+
+      if (value.length > 4) {
+        value = value.slice(0, 2) + "-" +
+                value.slice(2, 4) + "-" +
+                value.slice(4);
+      } else if (value.length > 2) {
+        value = value.slice(0, 2) + "-" + value.slice(2);
+      }
+
+      this.value = value;
+
+      // Keep the calendar synchronized when the typed date is valid.
+      const isoDate = getDOBForLogin();
+
+      $("dobPicker").value = isoDate || "";
+    });
+
+    $("dobPicker").addEventListener("change", function() {
+      if (!this.value) return;
+
+      const parts = this.value.split("-");
+
+      $("dobText").value =
+        parts[2] + "-" + parts[1] + "-" + parts[0];
+    });
+
+    function getDOBForLogin() {
+      const value = $("dobText").value.trim();
+      const match = value.match(/^(\d{2})-(\d{2})-(\d{4})$/);
+
+      if (!match) return null;
+
+      const day = Number(match[1]);
+      const month = Number(match[2]);
+      const year = Number(match[3]);
+
+      const date = new Date(Date.UTC(year, month - 1, day));
+
+      if (
+        date.getUTCFullYear() !== year ||
+        date.getUTCMonth() !== month - 1 ||
+        date.getUTCDate() !== day
+      ) {
+        return null;
+      }
+
+      return year + "-" +
+        String(month).padStart(2, "0") + "-" +
+        String(day).padStart(2, "0");
+    }
 
     function showMessage(message, type) {
       const box = $("loginMessage");
       box.textContent = message;
       box.className = "message " + type;
     }
-
 
     function setLoading(loading) {
       const button = $("loginButton");
@@ -936,16 +1016,15 @@
         : "VIEW MY RESULTS";
     }
 
-
     $("loginForm").addEventListener("submit", function(event) {
       event.preventDefault();
 
       const hallTicket = $("hallTicket").value.trim();
-      const dob = $("dob").value;
+      const dob = getDOBForLogin();
 
       if (!hallTicket || !dob) {
         showMessage(
-          "Please enter your hall ticket number and date of birth.",
+          "Please enter a valid date of birth in DD-MM-YYYY format.",
           "error"
         );
         return;
@@ -989,7 +1068,6 @@
         .verifyStudent(hallTicket, dob);
     });
 
-
     function loadStudentResults(hallTicket, dob, verifiedStudent) {
       google.script.run
         .withSuccessHandler(function(data) {
@@ -1026,6 +1104,7 @@
 
           // Select the latest assessment that has published marks.
           // Assessment order is FA1, FA2, SA1, FA3, FA4, SA2.
+
           let latestAssessment = null;
 
           for (let i = allAssessments.length - 1; i >= 0; i--) {
@@ -1080,7 +1159,6 @@
         .getStudentResults(hallTicket, dob);
     }
 
-
     function displayStudentDetails(student) {
       student = student || {};
 
@@ -1122,7 +1200,6 @@
 
       $("studentDetails").textContent = details.join("  |  ");
     }
-
 
     function normalizeAssessments(data) {
       let source = data.assessments || data.results || [];
@@ -1170,7 +1247,6 @@
       });
     }
 
-
     function populateAssessmentSelect() {
       const select = $("assessmentSelect");
       select.innerHTML = "";
@@ -1182,7 +1258,6 @@
         select.appendChild(option);
       });
     }
-
 
     function showSelectedAssessment() {
       const code = $("assessmentSelect").value;
@@ -1316,7 +1391,6 @@
       `;
     }
 
-
     function getGrade(percentage) {
       if (percentage >= 90) return "A1";
       if (percentage >= 80) return "A2";
@@ -1327,13 +1401,11 @@
       return "D";
     }
 
-
     function formatNumber(number) {
       return Number(number).toLocaleString("en-IN", {
         maximumFractionDigits: 2
       });
     }
-
 
     function escapeHTML(value) {
       return String(value ?? "")
@@ -1343,7 +1415,6 @@
         .replace(/"/g, "&quot;")
         .replace(/'/g, "&#039;");
     }
-
 
     function logout() {
       currentStudent = null;
