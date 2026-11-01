@@ -974,6 +974,10 @@
 
     const $ = id => document.getElementById(id);
 
+    // Cloudflare Worker API connection for GitHub Pages.
+    const API_URL =
+      "https://raagasree-results-api.yeshwanthsai-rys.workers.dev/";
+
     // Support both manual DOB typing and calendar selection.
 
     $("dobText").addEventListener("input", function() {
@@ -1041,7 +1045,8 @@
         : "VIEW MY RESULTS";
     }
 
-    $("loginForm").addEventListener("submit", function(event) {
+    // Submit student details to the Cloudflare Worker.
+    $("loginForm").addEventListener("submit", async function(event) {
       event.preventDefault();
 
       const hallTicket = $("hallTicket").value.trim();
@@ -1055,132 +1060,129 @@
         return;
       }
 
-      if (!window.google || !google.script || !google.script.run) {
+      setLoading(true);
+      showMessage("Checking your student details...", "success");
+
+      try {
+        const response = await fetch(API_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            action: "getStudentResults",
+            hallTicket: hallTicket,
+            dob: dob
+          })
+        });
+
+        if (!response.ok) {
+          throw new Error(
+            "Server connection failed. Please try again later."
+          );
+        }
+
+        const data = await response.json();
+
+        if (!data || data.success === false) {
+          setLoading(false);
+          showMessage(
+            data && data.message
+              ? data.message
+              : "Student details could not be verified. Please check your details.",
+            "error"
+          );
+          return;
+        }
+
+        loadStudentResults(data);
+
+      } catch (error) {
+        console.error("Portal connection error:", error);
+
+        setLoading(false);
+
         showMessage(
-          "The portal connection is unavailable. Please open the official Apps Script web app URL.",
+          error && error.message
+            ? error.message
+            : "Unable to connect to the results server. Please try again.",
+          "error"
+        );
+      }
+    });
+
+    function loadStudentResults(data) {
+      setLoading(false);
+
+      if (!data) {
+        showMessage(
+          "No results were returned. Please contact the school.",
           "error"
         );
         return;
       }
 
-      setLoading(true);
-      showMessage("Checking your student details...", "success");
+      currentStudent = data.student || data;
 
-      google.script.run
-        .withSuccessHandler(function(response) {
-          if (!response || response.success === false) {
-            setLoading(false);
-            showMessage(
-              response && response.message
-                ? response.message
-                : "Student details could not be verified. Please check your details.",
-              "error"
-            );
-            return;
-          }
+      allAssessments = normalizeAssessments(data);
 
-          loadStudentResults(hallTicket, dob, response);
-        })
-        .withFailureHandler(function(error) {
-          setLoading(false);
-          showMessage(
-            error && error.message
-              ? error.message
-              : "Unable to verify student details.",
-            "error"
-          );
-        })
-        .verifyStudent(hallTicket, dob);
-    });
+      if (!allAssessments.length) {
+        showMessage(
+          "Student verified, but no assessment results are available yet.",
+          "error"
+        );
+        return;
+      }
 
-    function loadStudentResults(hallTicket, dob, verifiedStudent) {
-      google.script.run
-        .withSuccessHandler(function(data) {
-          setLoading(false);
+      $("loginCard").style.display = "none";
+      $("dashboard").style.display = "block";
 
-          if (!data) {
-            showMessage(
-              "No results were returned. Please contact the school.",
-              "error"
-            );
-            return;
-          }
+      displayStudentDetails(currentStudent);
+      populateAssessmentSelect();
 
-          currentStudent =
-            data.student ||
-            verifiedStudent.student ||
-            verifiedStudent;
+      // Select the latest assessment that has published marks.
 
-          allAssessments = normalizeAssessments(data);
+      let latestAssessment = null;
 
-          if (!allAssessments.length) {
-            showMessage(
-              "Student verified, but no assessment results are available yet.",
-              "error"
-            );
-            return;
-          }
+      for (let i = allAssessments.length - 1; i >= 0; i--) {
+        const assessment = allAssessments[i];
+        const marks = assessment.marks || [];
 
-          $("loginCard").style.display = "none";
-          $("dashboard").style.display = "block";
+        const hasPublishedMarks = marks.some(item => {
+          const markValue =
+            item.marks !== undefined ? item.marks :
+            item.mark !== undefined ? item.mark :
+            item["Marks"];
 
-          displayStudentDetails(currentStudent);
-          populateAssessmentSelect();
+          return markValue !== undefined &&
+                 markValue !== null &&
+                 String(markValue).trim() !== "";
+        });
 
-          // Select the latest assessment that has published marks.
+        if (hasPublishedMarks) {
+          latestAssessment = assessment;
+          break;
+        }
+      }
 
-          let latestAssessment = null;
+      if (latestAssessment) {
+        $("assessmentSelect").value = latestAssessment.code;
+        showSelectedAssessment();
+      } else {
+        $("assessmentSelect").value = "";
+        $("assessmentLabel").textContent = "—";
+        $("totalMarks").textContent = "—";
+        $("percentage").textContent = "—";
+        $("overallGrade").textContent = "—";
 
-          for (let i = allAssessments.length - 1; i >= 0; i--) {
-            const assessment = allAssessments[i];
-            const marks = assessment.marks || [];
+        $("resultContent").innerHTML = `
+          <div class="empty-state">
+            Results have not been published yet.
+          </div>
+        `;
+      }
 
-            const hasPublishedMarks = marks.some(item => {
-              const markValue =
-                item.marks !== undefined ? item.marks :
-                item.mark !== undefined ? item.mark :
-                item["Marks"];
-
-              return markValue !== undefined &&
-                     markValue !== null &&
-                     String(markValue).trim() !== "";
-            });
-
-            if (hasPublishedMarks) {
-              latestAssessment = assessment;
-              break;
-            }
-          }
-
-          if (latestAssessment) {
-            $("assessmentSelect").value = latestAssessment.code;
-            showSelectedAssessment();
-          } else {
-            $("assessmentSelect").value = "";
-            $("assessmentLabel").textContent = "—";
-            $("totalMarks").textContent = "—";
-            $("percentage").textContent = "—";
-            $("overallGrade").textContent = "—";
-
-            $("resultContent").innerHTML = `
-              <div class="empty-state">
-                Results have not been published yet.
-              </div>
-            `;
-          }
-
-          window.scrollTo({ top: 0, behavior: "smooth" });
-        })
-        .withFailureHandler(function(error) {
-          setLoading(false);
-          showMessage(
-            error && error.message
-              ? error.message
-              : "Unable to load results.",
-            "error"
-          );
-        })
-        .getStudentResults(hallTicket, dob);
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
     function displayStudentDetails(student) {
