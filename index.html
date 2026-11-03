@@ -86,6 +86,17 @@
       letter-spacing: 1px;
     }
 
+    .admin-link {
+      background: var(--gold);
+      color: var(--navy);
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 800;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
     .hero {
       background: linear-gradient(120deg, #101f3d, #203d68);
       color: white;
@@ -432,8 +443,9 @@
 
     .stat-card h3 {
       color: var(--navy);
-      font-size: 25px;
+      font-size: 22px;
       margin-top: 9px;
+      overflow-wrap: anywhere;
     }
 
     .results-card {
@@ -475,7 +487,7 @@
     table {
       width: 100%;
       border-collapse: collapse;
-      min-width: 650px;
+      min-width: 620px;
     }
 
     th {
@@ -515,13 +527,14 @@
       border-radius: 20px;
       font-size: 10px;
       font-weight: 800;
+      margin-left: 5px;
     }
 
-    .grade-pill {
+    .remark-pill {
       display: inline-block;
       background: #f4eddb;
       color: #86611e;
-      padding: 5px 10px;
+      padding: 5px 9px;
       border-radius: 20px;
       font-size: 11px;
       font-weight: 800;
@@ -634,6 +647,15 @@
 
       .top-label {
         display: none;
+      }
+
+      .topbar {
+        padding: 12px 4%;
+      }
+
+      .admin-link {
+        padding: 9px 10px;
+        font-size: 10px;
       }
     }
 
@@ -763,7 +785,7 @@
         background: white !important;
       }
 
-      .grade-pill {
+      .remark-pill {
         border: 1px solid #c4a15a;
         background: #f8f1df !important;
         -webkit-print-color-adjust: exact;
@@ -806,10 +828,10 @@
     <div class="top-label">STUDENT RESULTS PORTAL</div>
 
     <a
+      class="admin-link"
       href="https://script.google.com/macros/s/AKfycbw2Yz4R3WzndbfG0wF8SxeuME9ZlRXpYw_oexLKwG5w5tOBRl7Ce59irsfpkaGmw3uw-A/exec?page=admin"
       target="_blank"
       rel="noopener noreferrer"
-      style="background:#d6a64b;color:#101f3d;padding:10px 16px;border-radius:8px;font-size:12px;font-weight:800;text-decoration:none;white-space:nowrap;"
     >
       ADMIN LOGIN ↗
     </a>
@@ -941,7 +963,7 @@
         </div>
 
         <div class="stat-card">
-          <small>Overall Grade</small>
+          <small>Overall Remark</small>
           <h3 id="overallGrade">—</h3>
         </div>
 
@@ -1172,7 +1194,6 @@
       displayStudentDetails(currentStudent);
       populateAssessmentSelect();
 
-      // Select the latest assessment containing results.
       let latestAssessment = null;
 
       for (let i = allAssessments.length - 1; i >= 0; i--) {
@@ -1286,7 +1307,6 @@
           total: item.total,
           maximumTotal: item.maximumTotal,
           percentage: item.percentage,
-          grade: item.grade,
           overallRemarks:
             item.overallRemarks ||
             item.overallRemark ||
@@ -1354,8 +1374,6 @@
       const retestMarks = getRetestMarks(item);
       const storedMarks = getItemMarks(item);
 
-      // Original absence remains recorded as AB.
-      // If a retest exists, display the retest score as current marks.
       if (
         originalStatus === "AB" &&
         hasValue(retestMarks)
@@ -1383,6 +1401,37 @@
         item.subjectName ||
         item["Subject"] ||
         "";
+    }
+
+    // ---------------- PERFORMANCE REMARKS ----------------
+
+    function getPerformanceRemark(percentage) {
+      if (percentage >= 90) return "Outstanding";
+      if (percentage >= 80) return "Excellent";
+      if (percentage >= 70) return "Very Good";
+      if (percentage >= 60) return "Good";
+      if (percentage >= 50) return "Satisfactory";
+      if (percentage >= 40) return "Needs Improvement";
+      return "Requires Special Attention";
+    }
+
+    function getSubjectRemark(item, currentMark, maximum, absent) {
+      if (absent) return "Absent";
+
+      if (!hasValue(currentMark)) return "—";
+
+      const mark = Number(currentMark);
+
+      if (
+        !Number.isFinite(mark) ||
+        maximum <= 0
+      ) {
+        return "—";
+      }
+
+      const percentage = (mark / maximum) * 100;
+
+      return getPerformanceRemark(percentage);
     }
 
     // ---------------- DISPLAY ASSESSMENT ----------------
@@ -1413,58 +1462,72 @@
         const absent = isAbsent(currentMark);
 
         let displayedMark = "—";
-        let grade = "—";
-        let statusHTML = "—";
+        let markClass = "marks-value";
+        let percentageText = "—";
+        let retestHTML = "";
 
         if (absent) {
           displayedMark = "AB";
-          statusHTML = '<span class="absent-mark">ABSENT</span>';
+          markClass += " absent-mark";
           absentSubjects++;
         } else if (hasValue(currentMark)) {
           const numericMark = Number(currentMark);
 
           if (Number.isFinite(numericMark)) {
             displayedMark = formatNumber(numericMark);
-            obtained += numericMark;
-            maximum += maxValue;
-            countedSubjects++;
 
-            grade = getGrade(
-              maxValue > 0 ? numericMark / maxValue * 100 : 0
-            );
+            if (maxValue > 0) {
+              const subjectPercentage =
+                (numericMark / maxValue) * 100;
+
+              obtained += numericMark;
+              maximum += maxValue;
+              countedSubjects++;
+
+              percentageText =
+                subjectPercentage.toFixed(1) + "%";
+            }
 
             if (
               originalStatus === "AB" &&
               hasValue(retestMarks)
             ) {
-              statusHTML = '<span class="retest-label">RETEST</span>';
-            } else {
-              statusHTML = "Present";
+              retestHTML =
+                ' <span class="retest-label">RETEST</span>';
             }
           }
         }
 
-        const remark =
-          item.remarks ||
-          item.remark ||
-          item["Remarks"] ||
-          (absent ? "Absent for the examination." : "");
+        const remark = getSubjectRemark(
+          item,
+          currentMark,
+          maxValue,
+          absent
+        );
 
         return `
           <tr>
             <td>${escapeHTML(subject)}</td>
-            <td class="marks-value ${absent ? "absent-mark" : ""}">
-              ${escapeHTML(displayedMark)}
+
+            <td class="${markClass}">
+              ${escapeHTML(displayedMark)}${retestHTML}
             </td>
-            <td>${absent ? "—" : (maxValue || "—")}</td>
-            <td>${escapeHTML(grade)}</td>
-            <td>${statusHTML}</td>
-            <td>${escapeHTML(remark)}</td>
+
+            <td>${absent || !maxValue ? "—" : formatNumber(maxValue)}</td>
+
+            <td>${escapeHTML(percentageText)}</td>
+
+            <td>
+              ${
+                remark === "—"
+                  ? "—"
+                  : `<span class="remark-pill">${escapeHTML(remark)}</span>`
+              }
+            </td>
           </tr>
         `;
       }).join("");
 
-      // AB subjects are excluded from both obtained and maximum totals.
       const allAbsent =
         marks.length > 0 && absentSubjects === marks.length;
 
@@ -1472,35 +1535,29 @@
         ? (obtained / maximum) * 100
         : 0;
 
-      let overallGrade = "—";
+      let overallRemark = "—";
 
       if (!allAbsent && maximum > 0) {
-        overallGrade =
-          selectedAssessment.grade ||
-          getGrade(percentage);
+        overallRemark = getPerformanceRemark(percentage);
       }
 
-      $("assessmentLabel").textContent = selectedAssessment.code;
+      $("assessmentLabel").textContent =
+        selectedAssessment.code || "—";
 
       if (allAbsent || countedSubjects === 0) {
         $("totalMarks").textContent = "—";
         $("percentage").textContent = "—";
-        $("overallGrade").textContent = "—";
+        $("overallGrade").textContent =
+          allAbsent ? "Not Available" : "—";
       } else {
         $("totalMarks").textContent =
           formatNumber(obtained) + " / " + formatNumber(maximum);
 
         $("percentage").textContent =
-          maximum > 0 ? percentage.toFixed(1) + "%" : "—";
+          percentage.toFixed(1) + "%";
 
-        $("overallGrade").textContent = overallGrade;
+        $("overallGrade").textContent = overallRemark;
       }
-
-      const overallRemarks =
-        selectedAssessment.overallRemarks ||
-        selectedAssessment.overallRemark ||
-        selectedAssessment["Overall Remarks"] ||
-        "";
 
       let resultHTML = "";
 
@@ -1514,7 +1571,8 @@
       } else if (countedSubjects === 0) {
         resultHTML = `
           <div class="empty-state">
-            No marks are available for this assessment.
+            <h3>Marks Not Available</h3>
+            Marks have not been entered for this assessment.
           </div>
         `;
       } else {
@@ -1526,8 +1584,7 @@
                   <th>SUBJECT</th>
                   <th>MARKS</th>
                   <th>MAXIMUM</th>
-                  <th>GRADE</th>
-                  <th>STATUS</th>
+                  <th>PERCENTAGE</th>
                   <th>REMARKS</th>
                 </tr>
               </thead>
@@ -1550,12 +1607,18 @@
             </div>
 
             <div class="summary-box">
-              <small>OVERALL RESULT</small>
+              <small>OVERALL PERCENTAGE</small>
               <h3>${percentage.toFixed(1)}%</h3>
             </div>
           </div>
         `;
       }
+
+      const overallRemarks = allAbsent
+        ? "Result Not Available"
+        : countedSubjects > 0
+          ? overallRemark
+          : "";
 
       if (overallRemarks) {
         resultHTML += `
@@ -1569,17 +1632,7 @@
       $("resultContent").innerHTML = resultHTML;
     }
 
-    // ---------------- GRADES AND FORMATTING ----------------
-
-    function getGrade(percentage) {
-      if (percentage >= 90) return "A1";
-      if (percentage >= 80) return "A2";
-      if (percentage >= 70) return "B1";
-      if (percentage >= 60) return "B2";
-      if (percentage >= 50) return "C1";
-      if (percentage >= 40) return "C2";
-      return "D";
-    }
+    // ---------------- FORMATTING ----------------
 
     function formatNumber(number) {
       return Number(number).toLocaleString("en-IN", {
