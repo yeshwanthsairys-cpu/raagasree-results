@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1022,7 +1023,7 @@
         </div>
 
         <div class="stat-card">
-          <small>Overall Remark</small>
+          <small>Overall Grade</small>
           <h3 id="overallGrade">—</h3>
         </div>
 
@@ -1644,8 +1645,9 @@
         $("percentage").textContent =
           percentage.toFixed(1) + "%";
 
-        $("overallGrade").textContent =
-          selectedAssessment.overallRemarks || overallRemark;
+        // OVERALL GRADE: calculated from the overall percentage.
+        // Example: 80% = B1.
+        $("overallGrade").textContent = getGrade(percentage);
       }
 
       let resultHTML = "";
