@@ -554,46 +554,44 @@
       font-size: 11px;
       font-weight: 800;
       line-height: 1.2;
+      color: #ffffff;
     }
 
-    .remark-outstanding {
-      background: #F5D76E;
-      color: #704900;
-    }
+    /* FINAL DARK REMARK BADGE COLOURS */
 
     .remark-excellent {
-      background: #D9F3DF;
-      color: #176B35;
+      background: #238B45;
+      color: #ffffff;
     }
 
     .remark-very-good {
-      background: #DCEBFF;
-      color: #2055A0;
+      background: #2459A6;
+      color: #ffffff;
     }
 
     .remark-good {
-      background: #DDF4F5;
-      color: #12666B;
+      background: #087C80;
+      color: #ffffff;
     }
 
     .remark-satisfactory {
-      background: #FFF1C7;
-      color: #805900;
+      background: #B8860B;
+      color: #ffffff;
     }
 
     .remark-needs-improvement {
-      background: #FFE5CC;
-      color: #98450D;
+      background: #C45A12;
+      color: #ffffff;
     }
 
     .remark-special-attention {
-      background: #FCE0E0;
-      color: #A52828;
+      background: #B3262D;
+      color: #ffffff;
     }
 
     .remark-absent {
-      background: #E8E9EC;
-      color: #555B65;
+      background: #555B65;
+      color: #ffffff;
     }
 
     .result-summary {
@@ -1480,18 +1478,16 @@
     // ---------------- PERFORMANCE REMARKS ----------------
 
     function getPerformanceRemark(percentage) {
-      if (percentage >= 90) return "Outstanding";
-      if (percentage >= 80) return "Excellent";
-      if (percentage >= 70) return "Very Good";
-      if (percentage >= 60) return "Good";
-      if (percentage >= 50) return "Satisfactory";
-      if (percentage >= 40) return "Needs Improvement";
+      if (percentage >= 90) return "Excellent";
+      if (percentage >= 80) return "Very Good";
+      if (percentage >= 70) return "Good";
+      if (percentage >= 60) return "Satisfactory";
+      if (percentage >= 50) return "Needs Improvement";
       return "Requires Special Attention";
     }
 
     function getRemarkClass(remark) {
       const classes = {
-        "Outstanding": "remark-outstanding",
         "Excellent": "remark-excellent",
         "Very Good": "remark-very-good",
         "Good": "remark-good",
