@@ -899,14 +899,14 @@
     }
 
     /* ==================================================
-       A4 COMPACT PRINT LAYOUT
+       PROFESSIONAL A4 PRINT LAYOUT
        ================================================== */
 
     @media print {
 
       @page {
         size: A4 portrait;
-        margin: 4mm;
+        margin: 6mm;
       }
 
       html,
@@ -923,7 +923,7 @@
       }
 
       body {
-        zoom: 0.58 !important;
+        zoom: 0.92 !important;
       }
 
       .topbar,
@@ -952,89 +952,82 @@
         padding: 0 !important;
       }
 
-      /* SCHOOL HEADING */
-
       .print-school {
         display: block !important;
         width: 100% !important;
         text-align: center !important;
         border-bottom: 2px double #b58a38 !important;
-        padding: 0 0 4px !important;
-        margin: 0 0 5px !important;
+        padding: 0 0 7px !important;
+        margin: 0 0 9px !important;
       }
 
       .print-school h1 {
         font-family: Georgia, serif !important;
         color: #101f3d !important;
-        font-size: 19px !important;
+        font-size: 23px !important;
         line-height: 1.15 !important;
+        letter-spacing: .4px !important;
       }
 
       .print-school h3 {
-        font-size: 10px !important;
-        margin-top: 2px !important;
+        font-size: 12px !important;
+        margin-top: 3px !important;
       }
 
       .print-school p {
-        font-size: 7px !important;
+        font-size: 9px !important;
         color: #745a2b !important;
-        margin-top: 2px !important;
+        margin-top: 3px !important;
       }
-
-      /* STUDENT DETAILS */
 
       .student-header {
         display: block !important;
         width: 100% !important;
         background: #ffffff !important;
         border: 1px solid #cfd4dd !important;
-        border-radius: 4px !important;
+        border-radius: 5px !important;
         box-shadow: none !important;
-        padding: 5px 7px !important;
-        margin: 0 0 5px !important;
+        padding: 9px 12px !important;
+        margin: 0 0 9px !important;
       }
 
       .student-header h2 {
-        font-size: 13px !important;
+        font-size: 17px !important;
         line-height: 1.2 !important;
         color: #101f3d !important;
       }
 
       .student-header p {
-        font-size: 7px !important;
-        margin-top: 2px !important;
-        line-height: 1.3 !important;
+        font-size: 10px !important;
+        margin-top: 4px !important;
+        line-height: 1.5 !important;
       }
-
-      /* FOUR SUMMARY CARDS IN ONE ROW */
 
       .dashboard-grid {
         display: grid !important;
         grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
-        gap: 4px !important;
-        margin: 0 0 5px !important;
+        gap: 7px !important;
+        margin: 0 0 10px !important;
       }
 
       .stat-card {
         min-width: 0 !important;
-        padding: 5px !important;
+        padding: 9px 10px !important;
         border: 1px solid #cfd4dd !important;
-        border-radius: 4px !important;
+        border-radius: 5px !important;
         box-shadow: none !important;
       }
 
       .stat-card small {
-        font-size: 7px !important;
+        font-size: 9px !important;
         letter-spacing: 0 !important;
       }
 
       .stat-card h3 {
-        font-size: 12px !important;
-        margin-top: 3px !important;
+        font-size: 16px !important;
+        margin-top: 5px !important;
         line-height: 1.2 !important;
       }
-
-      /* RESULTS SECTION */
 
       .results-card {
         display: block !important;
@@ -1049,12 +1042,12 @@
 
       .results-title {
         display: block !important;
-        margin: 0 0 4px !important;
+        margin: 0 0 8px !important;
         padding: 0 !important;
       }
 
       .results-title h2 {
-        font-size: 13px !important;
+        font-size: 17px !important;
         color: #101f3d !important;
       }
 
@@ -1066,8 +1059,6 @@
         overflow: visible !important;
         visibility: visible !important;
       }
-
-      /* TABLE */
 
       .table-wrap {
         display: block !important;
@@ -1104,79 +1095,75 @@
         background: #e8edf5 !important;
         color: #101f3d !important;
         border: 1px solid #cbd2dc !important;
-        padding: 4px !important;
-        font-size: 7px !important;
-        line-height: 1.15 !important;
+        padding: 8px 7px !important;
+        font-size: 9px !important;
+        line-height: 1.2 !important;
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
       }
 
       td {
         border: 1px solid #d6dbe3 !important;
-        padding: 3px 4px !important;
-        font-size: 7px !important;
-        line-height: 1.15 !important;
+        padding: 7px !important;
+        font-size: 9px !important;
+        line-height: 1.3 !important;
         vertical-align: middle !important;
         overflow-wrap: anywhere !important;
       }
 
       .marks-value {
-        font-size: 7px !important;
+        font-size: 10px !important;
       }
 
       .grade-value {
         min-width: 22px !important;
-        padding: 2px 4px !important;
-        font-size: 7px !important;
+        padding: 3px 6px !important;
+        font-size: 9px !important;
       }
 
       .remark-pill {
         display: inline-flex !important;
-        white-space: normal !important;
-        padding: 2px 4px !important;
+        white-space: nowrap !important;
+        padding: 4px 6px !important;
         border-radius: 8px !important;
-        font-size: 6px !important;
-        line-height: 1.1 !important;
+        font-size: 8px !important;
+        line-height: 1.2 !important;
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
       }
 
       .retest-label {
-        padding: 2px 3px !important;
-        font-size: 6px !important;
-        margin-left: 2px !important;
+        padding: 2px 4px !important;
+        font-size: 7px !important;
+        margin-left: 3px !important;
       }
-
-      /* MARKS SUMMARY */
 
       .result-summary {
         display: grid !important;
         grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
-        gap: 4px !important;
-        margin-top: 5px !important;
+        gap: 7px !important;
+        margin-top: 9px !important;
         break-inside: avoid !important;
         page-break-inside: avoid !important;
       }
 
       .summary-box {
-        padding: 4px 6px !important;
+        padding: 8px 10px !important;
         border: 1px solid #d6dbe3 !important;
-        border-radius: 4px !important;
+        border-radius: 5px !important;
         background: #f7f8fb !important;
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
       }
 
       .summary-box small {
-        font-size: 6px !important;
+        font-size: 8px !important;
       }
 
       .summary-box h3 {
-        font-size: 11px !important;
-        margin-top: 2px !important;
+        font-size: 15px !important;
+        margin-top: 4px !important;
       }
-
-      /* OVERALL PERFORMANCE */
 
       .overall-remarks {
         display: block !important;
@@ -1184,11 +1171,11 @@
         height: auto !important;
         min-height: 0 !important;
         max-height: none !important;
-        overflow: hidden !important;
-        margin: 4px 0 0 !important;
+        overflow: visible !important;
+        margin: 9px 0 0 !important;
         padding: 0 !important;
         border: 1px solid #cfd4dd !important;
-        border-radius: 5px !important;
+        border-radius: 7px !important;
         box-shadow: none !important;
         break-inside: avoid !important;
         page-break-inside: avoid !important;
@@ -1205,7 +1192,7 @@
       .overall-remarks-header {
         display: flex !important;
         width: 100% !important;
-        padding: 5px 8px !important;
+        padding: 9px 12px !important;
         background: #101f3d !important;
         color: #ffffff !important;
       }
@@ -1213,38 +1200,38 @@
       .overall-heading {
         display: flex !important;
         align-items: center !important;
-        gap: 6px !important;
+        gap: 8px !important;
       }
 
       .overall-heading-icon {
         display: grid !important;
-        width: 21px !important;
-        height: 21px !important;
-        min-width: 21px !important;
-        font-size: 10px !important;
+        width: 28px !important;
+        height: 28px !important;
+        min-width: 28px !important;
+        font-size: 13px !important;
       }
 
       .overall-heading-text strong {
         display: block !important;
-        font-size: 8px !important;
+        font-size: 10px !important;
         line-height: 1.2 !important;
       }
 
       .overall-heading-text span {
         display: block !important;
-        font-size: 6px !important;
+        font-size: 8px !important;
         margin-top: 2px !important;
       }
 
       .overall-gold-line {
         display: block !important;
-        width: 25px !important;
+        width: 32px !important;
         height: 2px !important;
       }
 
       .overall-remarks-body {
         display: block !important;
-        padding: 5px 8px !important;
+        padding: 11px 13px !important;
       }
 
       .overall-main-row {
@@ -1252,7 +1239,7 @@
         flex-direction: row !important;
         justify-content: space-between !important;
         align-items: center !important;
-        gap: 7px !important;
+        gap: 10px !important;
       }
 
       .overall-result-copy {
@@ -1263,64 +1250,64 @@
 
       .overall-result-copy small {
         display: block !important;
-        font-size: 6px !important;
-        letter-spacing: .6px !important;
-        margin-bottom: 2px !important;
+        font-size: 8px !important;
+        letter-spacing: .8px !important;
+        margin-bottom: 4px !important;
       }
 
       .overall-result-copy h3 {
         display: block !important;
-        font-size: 15px !important;
+        font-size: 21px !important;
         line-height: 1.15 !important;
         margin: 0 !important;
       }
 
       .overall-result-copy p {
         display: block !important;
-        font-size: 6px !important;
-        line-height: 1.2 !important;
-        margin-top: 2px !important;
+        font-size: 9px !important;
+        line-height: 1.4 !important;
+        margin-top: 4px !important;
       }
 
       .overall-score-badge {
         display: flex !important;
-        width: 45px !important;
-        min-width: 45px !important;
-        height: 45px !important;
-        flex: 0 0 45px !important;
-        border-width: 2px !important;
+        width: 66px !important;
+        min-width: 66px !important;
+        height: 66px !important;
+        flex: 0 0 66px !important;
+        border-width: 3px !important;
         border-radius: 50% !important;
         background: #ffffff !important;
       }
 
       .overall-score-badge strong {
         display: block !important;
-        font-size: 11px !important;
+        font-size: 17px !important;
         line-height: 1.1 !important;
       }
 
       .overall-score-badge span {
         display: block !important;
-        font-size: 5px !important;
+        font-size: 7px !important;
         margin-top: 2px !important;
       }
 
       .overall-progress-area {
         display: block !important;
-        margin-top: 4px !important;
+        margin-top: 8px !important;
       }
 
       .overall-progress-labels {
         display: flex !important;
         justify-content: space-between !important;
-        font-size: 6px !important;
-        margin-bottom: 2px !important;
+        font-size: 8px !important;
+        margin-bottom: 4px !important;
       }
 
       .overall-progress-track {
         display: block !important;
         width: 100% !important;
-        height: 4px !important;
+        height: 6px !important;
         overflow: hidden !important;
         background: #edf0f4 !important;
         border-radius: 10px !important;
@@ -1328,54 +1315,60 @@
 
       .overall-progress-fill {
         display: block !important;
-        height: 4px !important;
+        height: 6px !important;
         border-radius: 10px !important;
       }
 
       .overall-unavailable {
         display: flex !important;
-        padding: 6px !important;
-        gap: 6px !important;
+        padding: 8px !important;
+        gap: 8px !important;
         background: #f5f6f8 !important;
       }
 
       .overall-unavailable-icon {
         display: grid !important;
-        width: 23px !important;
-        height: 23px !important;
-        min-width: 23px !important;
-        font-size: 11px !important;
+        width: 28px !important;
+        height: 28px !important;
+        min-width: 28px !important;
+        font-size: 13px !important;
       }
 
       .overall-unavailable strong {
-        font-size: 8px !important;
+        font-size: 9px !important;
       }
 
       .overall-unavailable p {
-        font-size: 6px !important;
-        margin-top: 2px !important;
+        font-size: 8px !important;
+        margin-top: 3px !important;
       }
-
-      /* PRINT FOOTNOTE */
 
       .print-note {
         display: block !important;
-        margin-top: 4px !important;
+        margin-top: 8px !important;
         border-top: 1px solid #aaa !important;
-        padding-top: 3px !important;
-        font-size: 6px !important;
-        line-height: 1.2 !important;
+        padding-top: 6px !important;
+        font-size: 8px !important;
+        line-height: 1.3 !important;
         text-align: center !important;
       }
 
       .empty-state {
-        padding: 8px !important;
-        font-size: 8px !important;
+        padding: 12px !important;
+        font-size: 9px !important;
       }
 
       .empty-state h3 {
-        font-size: 11px !important;
-        margin-bottom: 3px !important;
+        font-size: 13px !important;
+        margin-bottom: 4px !important;
+      }
+
+      .student-header,
+      .dashboard-grid,
+      .result-summary,
+      .overall-remarks {
+        break-inside: avoid !important;
+        page-break-inside: avoid !important;
       }
     }
 
