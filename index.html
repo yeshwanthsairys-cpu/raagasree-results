@@ -557,40 +557,13 @@
       color: #ffffff;
     }
 
-    .remark-excellent {
-      background: #238B45;
-      color: #ffffff;
-    }
-
-    .remark-very-good {
-      background: #2459A6;
-      color: #ffffff;
-    }
-
-    .remark-good {
-      background: #087C80;
-      color: #ffffff;
-    }
-
-    .remark-satisfactory {
-      background: #B8860B;
-      color: #ffffff;
-    }
-
-    .remark-needs-improvement {
-      background: #C45A12;
-      color: #ffffff;
-    }
-
-    .remark-special-attention {
-      background: #B3262D;
-      color: #ffffff;
-    }
-
-    .remark-absent {
-      background: #555B65;
-      color: #ffffff;
-    }
+    .remark-excellent { background: #238B45; color: #ffffff; }
+    .remark-very-good { background: #2459A6; color: #ffffff; }
+    .remark-good { background: #087C80; color: #ffffff; }
+    .remark-satisfactory { background: #B8860B; color: #ffffff; }
+    .remark-needs-improvement { background: #C45A12; color: #ffffff; }
+    .remark-special-attention { background: #B3262D; color: #ffffff; }
+    .remark-absent { background: #555B65; color: #ffffff; }
 
     .result-summary {
       display: grid;
@@ -616,7 +589,7 @@
       margin-top: 6px;
     }
 
-    /* PREMIUM OVERALL PERFORMANCE DESIGN */
+    /* OVERALL PERFORMANCE */
 
     .overall-remarks {
       --performance-color: #555B65;
@@ -926,14 +899,14 @@
     }
 
     /* ==================================================
-       A4 SINGLE-PAGE PRINT LAYOUT
+       A4 COMPACT PRINT LAYOUT
        ================================================== */
 
     @media print {
 
       @page {
         size: A4 portrait;
-        margin: 7mm;
+        margin: 5mm;
       }
 
       html,
@@ -945,11 +918,12 @@
         background: #ffffff !important;
         color: #17243b !important;
         font-size: 9px !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
       }
 
       body {
-        -webkit-print-color-adjust: exact !important;
-        print-color-adjust: exact !important;
+        zoom: 0.72;
       }
 
       .topbar,
@@ -978,15 +952,15 @@
         padding: 0 !important;
       }
 
+      /* SCHOOL HEADING */
+
       .print-school {
         display: block !important;
         width: 100% !important;
         text-align: center !important;
         border-bottom: 2px double #b58a38 !important;
         padding: 0 0 5px !important;
-        margin: 0 0 7px !important;
-        break-after: avoid !important;
-        page-break-after: avoid !important;
+        margin: 0 0 6px !important;
       }
 
       .print-school h1 {
@@ -997,69 +971,70 @@
       }
 
       .print-school h3 {
-        font-size: 11px !important;
+        font-size: 10px !important;
         margin-top: 2px !important;
       }
 
       .print-school p {
-        font-size: 8px !important;
+        font-size: 7px !important;
         color: #745a2b !important;
         margin-top: 2px !important;
       }
+
+      /* STUDENT DETAILS */
 
       .student-header {
         display: block !important;
         width: 100% !important;
         background: #ffffff !important;
         border: 1px solid #cfd4dd !important;
-        border-radius: 5px !important;
+        border-radius: 4px !important;
         box-shadow: none !important;
-        padding: 7px 9px !important;
-        margin: 0 0 7px !important;
-        break-inside: avoid !important;
-        page-break-inside: avoid !important;
+        padding: 6px 8px !important;
+        margin: 0 0 6px !important;
       }
 
       .student-header h2 {
-        font-size: 14px !important;
+        font-size: 13px !important;
         line-height: 1.2 !important;
         color: #101f3d !important;
       }
 
       .student-header p {
-        font-size: 8px !important;
-        margin-top: 3px !important;
+        font-size: 7px !important;
+        margin-top: 2px !important;
         line-height: 1.3 !important;
       }
+
+      /* FOUR SUMMARY CARDS IN ONE ROW */
 
       .dashboard-grid {
         display: grid !important;
         grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
-        gap: 6px !important;
-        margin: 0 0 8px !important;
-        break-inside: avoid !important;
-        page-break-inside: avoid !important;
+        gap: 5px !important;
+        margin: 0 0 6px !important;
       }
 
       .stat-card {
         min-width: 0 !important;
-        padding: 7px 8px !important;
+        padding: 6px !important;
         border: 1px solid #cfd4dd !important;
-        border-radius: 5px !important;
+        border-radius: 4px !important;
         box-shadow: none !important;
-        break-inside: avoid !important;
       }
 
       .stat-card small {
         font-size: 7px !important;
-        letter-spacing: .2px !important;
+        letter-spacing: 0 !important;
       }
 
       .stat-card h3 {
-        font-size: 13px !important;
+        font-size: 12px !important;
         margin-top: 3px !important;
         line-height: 1.2 !important;
       }
+
+      /* RESULTS SECTION */
 
       .results-card {
         display: block !important;
@@ -1074,14 +1049,12 @@
 
       .results-title {
         display: block !important;
-        margin: 0 0 6px !important;
+        margin: 0 0 5px !important;
         padding: 0 !important;
-        break-after: avoid !important;
-        page-break-after: avoid !important;
       }
 
       .results-title h2 {
-        font-size: 14px !important;
+        font-size: 13px !important;
         color: #101f3d !important;
       }
 
@@ -1094,13 +1067,15 @@
         visibility: visible !important;
       }
 
+      /* TABLE */
+
       .table-wrap {
         display: block !important;
         width: 100% !important;
         overflow: visible !important;
         border-radius: 0 !important;
-        break-inside: avoid !important;
-        page-break-inside: avoid !important;
+        break-inside: auto !important;
+        page-break-inside: auto !important;
       }
 
       table {
@@ -1129,96 +1104,92 @@
         background: #e8edf5 !important;
         color: #101f3d !important;
         border: 1px solid #cbd2dc !important;
-        padding: 6px 7px !important;
-        font-size: 8px !important;
-        line-height: 1.2 !important;
-        -webkit-print-color-adjust: exact !important;
-        print-color-adjust: exact !important;
-      }
-
-      td {
-        border: 1px solid #d6dbe3 !important;
-        padding: 5px 7px !important;
-        font-size: 8px !important;
-        line-height: 1.2 !important;
-        vertical-align: middle !important;
-      }
-
-      .marks-value {
-        font-size: 8px !important;
-      }
-
-      .grade-value {
-        min-width: 25px !important;
-        padding: 3px 5px !important;
-        font-size: 8px !important;
-      }
-
-      .remark-pill {
-        display: inline-flex !important;
-        white-space: normal !important;
-        padding: 3px 5px !important;
-        border-radius: 10px !important;
+        padding: 5px !important;
         font-size: 7px !important;
         line-height: 1.15 !important;
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
       }
 
-      .retest-label {
+      td {
+        border: 1px solid #d6dbe3 !important;
+        padding: 4px 5px !important;
+        font-size: 7px !important;
+        line-height: 1.15 !important;
+        vertical-align: middle !important;
+        overflow-wrap: anywhere !important;
+      }
+
+      .marks-value {
+        font-size: 7px !important;
+      }
+
+      .grade-value {
+        min-width: 22px !important;
         padding: 2px 4px !important;
         font-size: 7px !important;
+      }
+
+      .remark-pill {
+        display: inline-flex !important;
+        white-space: normal !important;
+        padding: 2px 4px !important;
+        border-radius: 8px !important;
+        font-size: 6px !important;
+        line-height: 1.1 !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+
+      .retest-label {
+        padding: 2px 3px !important;
+        font-size: 6px !important;
         margin-left: 2px !important;
       }
+
+      /* MARKS SUMMARY */
 
       .result-summary {
         display: grid !important;
         grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
-        gap: 6px !important;
-        margin-top: 7px !important;
-        break-inside: avoid !important;
-        page-break-inside: avoid !important;
+        gap: 5px !important;
+        margin-top: 6px !important;
       }
 
       .summary-box {
-        padding: 6px 8px !important;
+        padding: 5px 7px !important;
         border: 1px solid #d6dbe3 !important;
-        border-radius: 5px !important;
+        border-radius: 4px !important;
         background: #f7f8fb !important;
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
       }
 
       .summary-box small {
-        font-size: 7px !important;
+        font-size: 6px !important;
       }
 
       .summary-box h3 {
-        font-size: 13px !important;
-        margin-top: 3px !important;
+        font-size: 11px !important;
+        margin-top: 2px !important;
       }
 
-      /* SHOW THE COMPLETE OVERALL PERFORMANCE PANEL */
+      /* OVERALL PERFORMANCE */
 
       .overall-remarks {
         display: block !important;
-        visibility: visible !important;
-        opacity: 1 !important;
-        position: relative !important;
         width: 100% !important;
         height: auto !important;
         min-height: 0 !important;
         max-height: none !important;
         overflow: visible !important;
-        margin: 8px 0 0 !important;
+        margin: 6px 0 0 !important;
         padding: 0 !important;
         border: 1px solid #cfd4dd !important;
-        border-radius: 6px !important;
+        border-radius: 5px !important;
         box-shadow: none !important;
-        break-inside: avoid !important;
-        page-break-inside: avoid !important;
-        -webkit-print-color-adjust: exact !important;
-        print-color-adjust: exact !important;
+        break-inside: auto !important;
+        page-break-inside: auto !important;
       }
 
       .overall-remarks * {
@@ -1229,97 +1200,90 @@
 
       .overall-remarks-header {
         display: flex !important;
-        visibility: visible !important;
         width: 100% !important;
-        min-height: 0 !important;
-        padding: 7px 10px !important;
+        padding: 6px 9px !important;
         background: #101f3d !important;
         color: #ffffff !important;
-        border-radius: 5px 5px 0 0 !important;
       }
 
       .overall-heading {
         display: flex !important;
         align-items: center !important;
-        gap: 8px !important;
+        gap: 7px !important;
       }
 
       .overall-heading-icon {
         display: grid !important;
-        width: 27px !important;
-        height: 27px !important;
-        min-width: 27px !important;
-        font-size: 14px !important;
+        width: 24px !important;
+        height: 24px !important;
+        min-width: 24px !important;
+        font-size: 12px !important;
       }
 
       .overall-heading-text strong {
         display: block !important;
-        font-size: 9px !important;
+        font-size: 8px !important;
         line-height: 1.2 !important;
       }
 
       .overall-heading-text span {
         display: block !important;
-        font-size: 7px !important;
+        font-size: 6px !important;
         margin-top: 2px !important;
       }
 
       .overall-gold-line {
         display: block !important;
-        width: 30px !important;
+        width: 25px !important;
         height: 2px !important;
       }
 
       .overall-remarks-body {
         display: block !important;
-        visibility: visible !important;
-        padding: 9px 11px !important;
+        padding: 7px 9px !important;
       }
 
       .overall-main-row {
         display: flex !important;
-        visibility: visible !important;
         flex-direction: row !important;
         justify-content: space-between !important;
         align-items: center !important;
-        gap: 10px !important;
+        gap: 8px !important;
       }
 
       .overall-result-copy {
         display: block !important;
-        visibility: visible !important;
         flex: 1 1 auto !important;
         min-width: 0 !important;
       }
 
       .overall-result-copy small {
         display: block !important;
-        font-size: 7px !important;
-        letter-spacing: .8px !important;
-        margin-bottom: 3px !important;
+        font-size: 6px !important;
+        letter-spacing: .6px !important;
+        margin-bottom: 2px !important;
       }
 
       .overall-result-copy h3 {
         display: block !important;
-        font-size: 19px !important;
+        font-size: 17px !important;
         line-height: 1.15 !important;
         margin: 0 !important;
       }
 
       .overall-result-copy p {
         display: block !important;
-        font-size: 8px !important;
-        line-height: 1.3 !important;
-        margin-top: 3px !important;
+        font-size: 7px !important;
+        line-height: 1.2 !important;
+        margin-top: 2px !important;
       }
 
       .overall-score-badge {
         display: flex !important;
-        visibility: visible !important;
-        width: 62px !important;
-        min-width: 62px !important;
-        height: 62px !important;
-        flex: 0 0 62px !important;
+        width: 55px !important;
+        min-width: 55px !important;
+        height: 55px !important;
+        flex: 0 0 55px !important;
         border-width: 3px !important;
         border-radius: 50% !important;
         background: #ffffff !important;
@@ -1327,33 +1291,32 @@
 
       .overall-score-badge strong {
         display: block !important;
-        font-size: 15px !important;
+        font-size: 13px !important;
         line-height: 1.1 !important;
       }
 
       .overall-score-badge span {
         display: block !important;
-        font-size: 6px !important;
+        font-size: 5px !important;
         margin-top: 2px !important;
       }
 
       .overall-progress-area {
         display: block !important;
-        visibility: visible !important;
-        margin-top: 8px !important;
+        margin-top: 6px !important;
       }
 
       .overall-progress-labels {
         display: flex !important;
         justify-content: space-between !important;
-        font-size: 7px !important;
-        margin-bottom: 4px !important;
+        font-size: 6px !important;
+        margin-bottom: 3px !important;
       }
 
       .overall-progress-track {
         display: block !important;
         width: 100% !important;
-        height: 6px !important;
+        height: 5px !important;
         overflow: hidden !important;
         background: #edf0f4 !important;
         border-radius: 10px !important;
@@ -1361,62 +1324,54 @@
 
       .overall-progress-fill {
         display: block !important;
-        height: 6px !important;
+        height: 5px !important;
         border-radius: 10px !important;
       }
 
       .overall-unavailable {
         display: flex !important;
-        visibility: visible !important;
-        padding: 10px !important;
-        gap: 8px !important;
+        padding: 8px !important;
+        gap: 7px !important;
         background: #f5f6f8 !important;
       }
 
       .overall-unavailable-icon {
         display: grid !important;
-        width: 30px !important;
-        height: 30px !important;
-        min-width: 30px !important;
-        font-size: 14px !important;
+        width: 26px !important;
+        height: 26px !important;
+        min-width: 26px !important;
+        font-size: 12px !important;
       }
 
       .overall-unavailable strong {
-        font-size: 9px !important;
+        font-size: 8px !important;
       }
 
       .overall-unavailable p {
-        font-size: 8px !important;
+        font-size: 7px !important;
         margin-top: 2px !important;
       }
 
+      /* PRINT FOOTNOTE */
+
       .print-note {
         display: block !important;
-        margin-top: 7px !important;
+        margin-top: 5px !important;
         border-top: 1px solid #aaa !important;
-        padding-top: 5px !important;
-        font-size: 7px !important;
+        padding-top: 4px !important;
+        font-size: 6px !important;
         line-height: 1.2 !important;
         text-align: center !important;
-        break-inside: avoid !important;
       }
 
       .empty-state {
-        padding: 12px !important;
-        font-size: 9px !important;
+        padding: 10px !important;
+        font-size: 8px !important;
       }
 
       .empty-state h3 {
-        font-size: 12px !important;
-        margin-bottom: 4px !important;
-      }
-
-      /* Keep report elements compact and printable */
-      .result-summary,
-      .overall-remarks,
-      .print-note {
-        page-break-inside: avoid !important;
-        break-inside: avoid !important;
+        font-size: 11px !important;
+        margin-bottom: 3px !important;
       }
     }
 
@@ -2280,7 +2235,7 @@
       }
 
       // OVERALL PERFORMANCE PANEL
-      // Remark is calculated from the percentage, not the Google Sheet text.
+      // Remark is calculated from percentage, not Google Sheet text.
 
       if (allAbsent) {
         resultHTML += `
