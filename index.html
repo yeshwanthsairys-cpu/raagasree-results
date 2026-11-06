@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -598,7 +597,7 @@
       border-radius: 14px;
       overflow: hidden;
       background: #ffffff;
-      box-shadow: 0 7px 22px rgba(16,31,61,.07);
+            box-shadow: 0 7px 22px rgba(16,31,61,.07);
       break-inside: avoid;
     }
 
@@ -899,14 +898,14 @@
     }
 
     /* ==================================================
-       PROFESSIONAL A4 PRINT LAYOUT
+       RAAGASREE - FULL PAGE A4 PRINT LAYOUT
+       Keeps the existing screen design and portal logic unchanged.
        ================================================== */
 
     @media print {
-
       @page {
         size: A4 portrait;
-        margin: 6mm;
+        margin: 9mm;
       }
 
       html,
@@ -917,20 +916,19 @@
         padding: 0 !important;
         background: #ffffff !important;
         color: #17243b !important;
-        font-size: 9px !important;
+        font-family: 'DM Sans', sans-serif !important;
+        font-size: 11px !important;
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
       }
 
       body {
-        zoom: 0.92 !important;
+        zoom: 1 !important;
       }
 
       .topbar,
       .hero,
       .login-card,
-      .student-header .logout-btn,
-      .results-title .assessment-select,
       .footer,
       .no-print {
         display: none !important;
@@ -945,92 +943,110 @@
         position: static !important;
       }
 
+      /* Use the complete printable A4 height. */
       .dashboard {
-        display: block !important;
+        display: flex !important;
+        flex-direction: column !important;
         width: 100% !important;
+        height: 279mm !important;
+        min-height: 279mm !important;
         margin: 0 !important;
         padding: 0 !important;
+        gap: 0 !important;
       }
 
+      /* School heading */
       .print-school {
         display: block !important;
         width: 100% !important;
         text-align: center !important;
         border-bottom: 2px double #b58a38 !important;
-        padding: 0 0 7px !important;
-        margin: 0 0 9px !important;
+        padding: 5px 0 11px !important;
+        margin: 0 0 12px !important;
       }
 
       .print-school h1 {
         font-family: Georgia, serif !important;
         color: #101f3d !important;
-        font-size: 23px !important;
-        line-height: 1.15 !important;
-        letter-spacing: .4px !important;
+        font-size: 25px !important;
+        line-height: 1.2 !important;
+        letter-spacing: .5px !important;
       }
 
       .print-school h3 {
-        font-size: 12px !important;
-        margin-top: 3px !important;
+        color: #101f3d !important;
+        font-size: 13px !important;
+        margin-top: 4px !important;
       }
 
       .print-school p {
-        font-size: 9px !important;
         color: #745a2b !important;
-        margin-top: 3px !important;
+        font-size: 10px !important;
+        margin-top: 4px !important;
       }
 
+      /* Student identity strip */
       .student-header {
         display: block !important;
         width: 100% !important;
         background: #ffffff !important;
         border: 1px solid #cfd4dd !important;
-        border-radius: 5px !important;
+        border-radius: 7px !important;
         box-shadow: none !important;
-        padding: 9px 12px !important;
-        margin: 0 0 9px !important;
+        padding: 12px 15px !important;
+        margin: 0 0 12px !important;
       }
 
       .student-header h2 {
-        font-size: 17px !important;
-        line-height: 1.2 !important;
         color: #101f3d !important;
+        font-size: 20px !important;
+        line-height: 1.25 !important;
       }
 
       .student-header p {
-        font-size: 10px !important;
-        margin-top: 4px !important;
+        color: #586579 !important;
+        font-size: 11px !important;
+        margin-top: 6px !important;
         line-height: 1.5 !important;
       }
 
+      /* Four assessment summary cards */
       .dashboard-grid {
         display: grid !important;
         grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
-        gap: 7px !important;
-        margin: 0 0 10px !important;
+        gap: 9px !important;
+        margin: 0 0 14px !important;
       }
 
       .stat-card {
         min-width: 0 !important;
-        padding: 9px 10px !important;
+        padding: 12px !important;
         border: 1px solid #cfd4dd !important;
-        border-radius: 5px !important;
+        border-radius: 7px !important;
         box-shadow: none !important;
+        background: #ffffff !important;
       }
 
       .stat-card small {
+        color: #68758a !important;
         font-size: 9px !important;
-        letter-spacing: 0 !important;
+        letter-spacing: .2px !important;
       }
 
       .stat-card h3 {
-        font-size: 16px !important;
-        margin-top: 5px !important;
-        line-height: 1.2 !important;
+        color: #101f3d !important;
+        font-size: 18px !important;
+        margin-top: 7px !important;
+        line-height: 1.25 !important;
+        overflow-wrap: anywhere !important;
       }
 
+      /* Result area expands to fill the remaining page height. */
       .results-card {
-        display: block !important;
+        display: flex !important;
+        flex: 1 1 auto !important;
+        flex-direction: column !important;
+        min-height: 0 !important;
         width: 100% !important;
         padding: 0 !important;
         margin: 0 !important;
@@ -1042,17 +1058,20 @@
 
       .results-title {
         display: block !important;
-        margin: 0 0 8px !important;
+        margin: 0 0 10px !important;
         padding: 0 !important;
       }
 
       .results-title h2 {
-        font-size: 17px !important;
         color: #101f3d !important;
+        font-size: 20px !important;
       }
 
       #resultContent {
-        display: block !important;
+        display: flex !important;
+        flex: 1 1 auto !important;
+        flex-direction: column !important;
+        min-height: 0 !important;
         width: 100% !important;
         height: auto !important;
         max-height: none !important;
@@ -1062,16 +1081,16 @@
 
       .table-wrap {
         display: block !important;
+        flex: 1 1 auto !important;
         width: 100% !important;
         overflow: visible !important;
         border-radius: 0 !important;
-        break-inside: auto !important;
-        page-break-inside: auto !important;
       }
 
       table {
         display: table !important;
         width: 100% !important;
+        height: 100% !important;
         min-width: 0 !important;
         table-layout: fixed !important;
         border-collapse: collapse !important;
@@ -1095,76 +1114,79 @@
         background: #e8edf5 !important;
         color: #101f3d !important;
         border: 1px solid #cbd2dc !important;
-        padding: 8px 7px !important;
-        font-size: 9px !important;
-        line-height: 1.2 !important;
+        padding: 12px 9px !important;
+        font-size: 10px !important;
+        line-height: 1.35 !important;
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
       }
 
       td {
         border: 1px solid #d6dbe3 !important;
-        padding: 7px !important;
-        font-size: 9px !important;
-        line-height: 1.3 !important;
+        padding: 12px 9px !important;
+        font-size: 11px !important;
+        line-height: 1.45 !important;
         vertical-align: middle !important;
         overflow-wrap: anywhere !important;
       }
 
       .marks-value {
-        font-size: 10px !important;
+        font-size: 12px !important;
       }
 
       .grade-value {
-        min-width: 22px !important;
-        padding: 3px 6px !important;
-        font-size: 9px !important;
+        min-width: 27px !important;
+        padding: 4px 7px !important;
+        font-size: 10px !important;
       }
 
       .remark-pill {
         display: inline-flex !important;
         white-space: nowrap !important;
-        padding: 4px 6px !important;
+        padding: 5px 8px !important;
         border-radius: 8px !important;
-        font-size: 8px !important;
-        line-height: 1.2 !important;
+        font-size: 9px !important;
+        line-height: 1.25 !important;
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
       }
 
       .retest-label {
-        padding: 2px 4px !important;
-        font-size: 7px !important;
-        margin-left: 3px !important;
+        padding: 3px 5px !important;
+        font-size: 8px !important;
       }
 
+      /* Three totals cards */
       .result-summary {
         display: grid !important;
         grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
-        gap: 7px !important;
-        margin-top: 9px !important;
+        gap: 9px !important;
+        margin-top: 13px !important;
         break-inside: avoid !important;
         page-break-inside: avoid !important;
       }
 
       .summary-box {
-        padding: 8px 10px !important;
+        padding: 12px !important;
         border: 1px solid #d6dbe3 !important;
-        border-radius: 5px !important;
+        border-radius: 7px !important;
         background: #f7f8fb !important;
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
       }
 
       .summary-box small {
-        font-size: 8px !important;
+        color: #68758a !important;
+        font-size: 9px !important;
       }
 
       .summary-box h3 {
-        font-size: 15px !important;
-        margin-top: 4px !important;
+        color: #101f3d !important;
+        font-size: 18px !important;
+        margin-top: 6px !important;
       }
 
+      /* Overall performance panel */
       .overall-remarks {
         display: block !important;
         width: 100% !important;
@@ -1172,15 +1194,13 @@
         min-height: 0 !important;
         max-height: none !important;
         overflow: visible !important;
-        margin: 9px 0 0 !important;
+        margin: 13px 0 0 !important;
         padding: 0 !important;
         border: 1px solid #cfd4dd !important;
-        border-radius: 7px !important;
+                border-radius: 8px !important;
         box-shadow: none !important;
         break-inside: avoid !important;
         page-break-inside: avoid !important;
-        break-before: avoid !important;
-        page-break-before: avoid !important;
       }
 
       .overall-remarks * {
@@ -1192,7 +1212,7 @@
       .overall-remarks-header {
         display: flex !important;
         width: 100% !important;
-        padding: 9px 12px !important;
+        padding: 12px 15px !important;
         background: #101f3d !important;
         color: #ffffff !important;
       }
@@ -1200,38 +1220,37 @@
       .overall-heading {
         display: flex !important;
         align-items: center !important;
-        gap: 8px !important;
+        gap: 9px !important;
       }
 
       .overall-heading-icon {
         display: grid !important;
-        width: 28px !important;
-        height: 28px !important;
-        min-width: 28px !important;
-        font-size: 13px !important;
+        width: 32px !important;
+        height: 32px !important;
+        min-width: 32px !important;
+        font-size: 15px !important;
       }
 
       .overall-heading-text strong {
         display: block !important;
-        font-size: 10px !important;
-        line-height: 1.2 !important;
+        font-size: 11px !important;
       }
 
       .overall-heading-text span {
         display: block !important;
-        font-size: 8px !important;
-        margin-top: 2px !important;
+        font-size: 9px !important;
+        margin-top: 3px !important;
       }
 
       .overall-gold-line {
         display: block !important;
-        width: 32px !important;
-        height: 2px !important;
+        width: 38px !important;
+        height: 3px !important;
       }
 
       .overall-remarks-body {
         display: block !important;
-        padding: 11px 13px !important;
+        padding: 15px 17px !important;
       }
 
       .overall-main-row {
@@ -1239,7 +1258,7 @@
         flex-direction: row !important;
         justify-content: space-between !important;
         align-items: center !important;
-        gap: 10px !important;
+        gap: 14px !important;
       }
 
       .overall-result-copy {
@@ -1250,64 +1269,61 @@
 
       .overall-result-copy small {
         display: block !important;
-        font-size: 8px !important;
-        letter-spacing: .8px !important;
-        margin-bottom: 4px !important;
+        font-size: 9px !important;
+        margin-bottom: 6px !important;
       }
 
       .overall-result-copy h3 {
         display: block !important;
-        font-size: 21px !important;
-        line-height: 1.15 !important;
+        font-size: 24px !important;
+        line-height: 1.2 !important;
         margin: 0 !important;
       }
 
       .overall-result-copy p {
         display: block !important;
-        font-size: 9px !important;
-        line-height: 1.4 !important;
-        margin-top: 4px !important;
+        font-size: 10px !important;
+        line-height: 1.5 !important;
+        margin-top: 6px !important;
       }
 
       .overall-score-badge {
         display: flex !important;
-        width: 66px !important;
-        min-width: 66px !important;
-        height: 66px !important;
-        flex: 0 0 66px !important;
-        border-width: 3px !important;
-        border-radius: 50% !important;
+        width: 78px !important;
+        min-width: 78px !important;
+        height: 78px !important;
+        flex: 0 0 78px !important;
+        border-width: 4px !important;
         background: #ffffff !important;
       }
 
       .overall-score-badge strong {
         display: block !important;
-        font-size: 17px !important;
-        line-height: 1.1 !important;
+        font-size: 20px !important;
       }
 
       .overall-score-badge span {
         display: block !important;
-        font-size: 7px !important;
-        margin-top: 2px !important;
+        font-size: 8px !important;
+        margin-top: 3px !important;
       }
 
       .overall-progress-area {
         display: block !important;
-        margin-top: 8px !important;
+        margin-top: 12px !important;
       }
 
       .overall-progress-labels {
         display: flex !important;
         justify-content: space-between !important;
-        font-size: 8px !important;
-        margin-bottom: 4px !important;
+        font-size: 9px !important;
+        margin-bottom: 6px !important;
       }
 
       .overall-progress-track {
         display: block !important;
         width: 100% !important;
-        height: 6px !important;
+        height: 7px !important;
         overflow: hidden !important;
         background: #edf0f4 !important;
         border-radius: 10px !important;
@@ -1315,52 +1331,54 @@
 
       .overall-progress-fill {
         display: block !important;
-        height: 6px !important;
+        height: 7px !important;
         border-radius: 10px !important;
       }
 
       .overall-unavailable {
         display: flex !important;
-        padding: 8px !important;
-        gap: 8px !important;
+        padding: 13px !important;
+        gap: 10px !important;
         background: #f5f6f8 !important;
       }
 
       .overall-unavailable-icon {
         display: grid !important;
-        width: 28px !important;
-        height: 28px !important;
-        min-width: 28px !important;
-        font-size: 13px !important;
+        width: 33px !important;
+        height: 33px !important;
+        min-width: 33px !important;
+        font-size: 15px !important;
       }
 
       .overall-unavailable strong {
-        font-size: 9px !important;
+        font-size: 10px !important;
       }
 
       .overall-unavailable p {
-        font-size: 8px !important;
-        margin-top: 3px !important;
+        font-size: 9px !important;
+        margin-top: 4px !important;
       }
 
+      /* Footer is anchored near the bottom of the printable page. */
       .print-note {
         display: block !important;
-        margin-top: 8px !important;
-        border-top: 1px solid #aaa !important;
-        padding-top: 6px !important;
-        font-size: 8px !important;
-        line-height: 1.3 !important;
+        margin-top: auto !important;
+        border-top: 1px solid #cfd4dd !important;
+        padding: 10px 0 0 !important;
+        font-size: 9px !important;
+        line-height: 1.4 !important;
         text-align: center !important;
+        color: #555 !important;
       }
 
       .empty-state {
-        padding: 12px !important;
-        font-size: 9px !important;
+        padding: 18px !important;
+        font-size: 11px !important;
       }
 
       .empty-state h3 {
-        font-size: 13px !important;
-        margin-bottom: 4px !important;
+        font-size: 16px !important;
+        margin-bottom: 6px !important;
       }
 
       .student-header,
@@ -1374,6 +1392,12 @@
 
     .print-note {
       display: none;
+    }
+
+    @media print {
+      .print-note {
+        display: block !important;
+      }
     }
   </style>
 </head>
@@ -1773,7 +1797,7 @@
         $("assessmentSelect").value = latestAssessment.code;
         showSelectedAssessment();
       } else {
-        showNoResults();
+                showNoResults();
       }
 
       window.scrollTo({ top: 0, behavior: "smooth" });
