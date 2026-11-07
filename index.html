@@ -597,7 +597,7 @@
       border-radius: 14px;
       overflow: hidden;
       background: #ffffff;
-            box-shadow: 0 7px 22px rgba(16,31,61,.07);
+      box-shadow: 0 7px 22px rgba(16,31,61,.07);
       break-inside: avoid;
     }
 
@@ -943,7 +943,6 @@
         position: static !important;
       }
 
-      /* Use the complete printable A4 height. */
       .dashboard {
         display: flex !important;
         flex-direction: column !important;
@@ -955,7 +954,6 @@
         gap: 0 !important;
       }
 
-      /* School heading */
       .print-school {
         display: block !important;
         width: 100% !important;
@@ -985,7 +983,6 @@
         margin-top: 4px !important;
       }
 
-      /* Student identity strip */
       .student-header {
         display: block !important;
         width: 100% !important;
@@ -1010,7 +1007,6 @@
         line-height: 1.5 !important;
       }
 
-      /* Four assessment summary cards */
       .dashboard-grid {
         display: grid !important;
         grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
@@ -1041,7 +1037,6 @@
         overflow-wrap: anywhere !important;
       }
 
-      /* Result area expands to fill the remaining page height. */
       .results-card {
         display: flex !important;
         flex: 1 1 auto !important;
@@ -1156,7 +1151,6 @@
         font-size: 8px !important;
       }
 
-      /* Three totals cards */
       .result-summary {
         display: grid !important;
         grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
@@ -1186,7 +1180,6 @@
         margin-top: 6px !important;
       }
 
-      /* Overall performance panel */
       .overall-remarks {
         display: block !important;
         width: 100% !important;
@@ -1197,7 +1190,7 @@
         margin: 13px 0 0 !important;
         padding: 0 !important;
         border: 1px solid #cfd4dd !important;
-                border-radius: 8px !important;
+        border-radius: 8px !important;
         box-shadow: none !important;
         break-inside: avoid !important;
         page-break-inside: avoid !important;
@@ -1359,7 +1352,6 @@
         margin-top: 4px !important;
       }
 
-      /* Footer is anchored near the bottom of the printable page. */
       .print-note {
         display: block !important;
         margin-top: auto !important;
@@ -1486,7 +1478,7 @@
             <input
               id="dobText"
               type="text"
-              placeholder="DD-MM-YYYY"
+              placeholder="DD-MM-YYYY or DD-MM-YY"
               inputmode="numeric"
               maxlength="10"
               autocomplete="bday"
@@ -1646,15 +1638,23 @@
         parts[2] + "-" + parts[1] + "-" + parts[0];
     });
 
+    // Accepts both DD-MM-YYYY and DD-MM-YY.
+    // Two-digit years are interpreted as 2000-2099.
     function getDOBForLogin() {
       const value = $("dobText").value.trim();
-      const match = value.match(/^(\d{2})-(\d{2})-(\d{4})$/);
+
+      const match = value.match(/^(\d{2})-(\d{2})-(\d{2}|\d{4})$/);
 
       if (!match) return null;
 
       const day = Number(match[1]);
       const month = Number(match[2]);
-      const year = Number(match[3]);
+
+      let year = Number(match[3]);
+
+      if (match[3].length === 2) {
+        year = 2000 + year;
+      }
 
       const date = new Date(Date.UTC(year, month - 1, day));
 
@@ -1695,7 +1695,7 @@
 
       if (!hallTicket || !dob) {
         showMessage(
-          "Please enter a valid date of birth in DD-MM-YYYY format.",
+          "Please enter a valid date of birth in DD-MM-YYYY or DD-MM-YY format.",
           "error"
         );
         return;
@@ -1797,7 +1797,7 @@
         $("assessmentSelect").value = latestAssessment.code;
         showSelectedAssessment();
       } else {
-                showNoResults();
+        showNoResults();
       }
 
       window.scrollTo({ top: 0, behavior: "smooth" });
